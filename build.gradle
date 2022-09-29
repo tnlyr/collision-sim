@@ -31,7 +31,7 @@ javafx {
 }
 
 application {
-    mainClass = 'edu.vanier.collisions.view.MainApp'
+    mainClass = 'edu.vanier.collisions.views.MainApp'
 }
 
 test {
