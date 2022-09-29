@@ -1,0 +1,39 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'org.javamodularity.moduleplugin' version '1.8.12' apply false
+}
+
+group 'edu.vanier.collisions'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compileOnly 'org.openjfx:javafx-base:19:sources'
+    compileOnly 'org.openjfx:javafx-controls:19:sources'
+    compileOnly 'org.openjfx:javafx-fxml:19:sources'
+    compileOnly 'org.openjfx:javafx-graphics:19:sources'
+
+    // Load the Javadoc for the specified JavaFX modules.
+    compileOnly 'org.openjfx:javafx-base:19:javadoc'
+    compileOnly 'org.openjfx:javafx-controls:19:javadoc'
+    compileOnly 'org.openjfx:javafx-fxml:19:javadoc'
+    compileOnly 'org.openjfx:javafx-graphics:19:javadoc'
+}
+
+javafx {
+    version = '18.0.2'
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media']
+}
+
+application {
+    mainClass = 'edu.vanier.collisions.views.MainApp'
+}
+
+test {
+    exclude '**/*'
+}
