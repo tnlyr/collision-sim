@@ -1,11 +1,10 @@
-package edu.vanier.template;
+package edu.vanier.collisions.views;
 
-import edu.vanier.template.controllers.MainAppController;
+import edu.vanier.collisions.controllers.MainAppController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
