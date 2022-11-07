@@ -20,9 +20,10 @@ public class MainApp extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UIDesignFinal1.fxml"));
         loader.setController(new MainAppController());
         Pane root = loader.load();
-        Scene scene = new Scene(root, 850, 710);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("This is a JavaFX app template...");
+        stage.setResizable(false);
+        stage.setTitle("Collisions Simulation");
         stage.sizeToScene();
         stage.show();
     }
