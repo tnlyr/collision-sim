@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * 
+ * TODO: is this necessary?
  * @link: https://openjfx.io/javadoc/18/
  * @see: Build Scripts/build.gradle
  * @author Bozos
@@ -23,7 +23,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Collisions Simulation");
+        stage.setTitle("Collision Simulator");
         stage.sizeToScene();
         stage.show();
     }
