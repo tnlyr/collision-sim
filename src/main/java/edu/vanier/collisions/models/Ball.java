@@ -1,4 +1,4 @@
-package edu.vanier.collisions.entities;
+package edu.vanier.collisions.models;
 
 import javafx.scene.paint.Color;
 
