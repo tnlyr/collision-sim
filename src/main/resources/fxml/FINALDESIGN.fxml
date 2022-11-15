@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="910.0" prefWidth="1235.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <VBox prefHeight="163.0" prefWidth="1235.0" BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar fx:id="menuBar">
+                    <menus>
+                        <Menu fx:id="fileMenuBarbtn" mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu fx:id="editMenuBarbtn" mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu fx:id="helpMenuBarbtn" mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <ToolBar layoutX="10.0" layoutY="35.0" prefHeight="70.0" prefWidth="1127.0">
+                    <items>
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="1216.0">
+                     <children>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints />
+                              <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+                              <ColumnConstraints halignment="CENTER" maxWidth="105.0" minWidth="300.0" prefWidth="105.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="300.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Playblack Option" wrappingWidth="100.86865234375" GridPane.columnIndex="3">
+                                 <GridPane.margin>
+                                    <Insets right="200.0" />
+                                 </GridPane.margin>
+                              </Text>
+                                    <Slider fx:id="playbackSlider" blockIncrement="0.1" majorTickUnit="0.5" max="2.0" minorTickCount="1" prefHeight="38.0" prefWidth="121.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Slider>
+                                    <MenuButton mnemonicParsing="false" text="Terrain Type" GridPane.columnIndex="2">
+                                        <items>
+                                            <MenuItem mnemonicParsing="false" text="Rami t pa bo" />
+                                            <MenuItem mnemonicParsing="false" text="Ben t bo" />
+                                        </items>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                    </MenuButton>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Elasticity Levels" wrappingWidth="97.86865234375" GridPane.columnIndex="5" />
+                              <Slider fx:id="physicSlider" blockIncrement="0.1" majorTickUnit="0.5" max="2.0" minorTickCount="1" prefHeight="38.0" prefWidth="121.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                                    <Button fx:id="exportBtn" mnemonicParsing="false" text="Export Options" GridPane.columnIndex="6" />
+                                    <Button fx:id="ImportBtn" mnemonicParsing="false" text="Import Options" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </HBox>
+                    </items>
+                </ToolBar>
+                <ToolBar prefHeight="45.0" prefWidth="1235.0">
+                    <items>
+                  <HBox alignment="CENTER" prefHeight="35.0" prefWidth="1216.0">
+                     <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car 1:">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin></Text>
+                              <TextField fx:id="car1VelocityTextField" prefHeight="16.0" prefWidth="69.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m/s">
+                           <HBox.margin>
+                              <Insets left="5.0" right="10.0" />
+                           </HBox.margin></Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mass:">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin></Text>
+                              <TextField fx:id="car1MassTextField" prefHeight="21.0" prefWidth="73.0">
+                           <HBox.margin>
+                              <Insets left="5.0" right="10.0" />
+                           </HBox.margin></TextField>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="kg">
+                           <HBox.margin>
+                              <Insets right="50.0" />
+                           </HBox.margin></Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car 2:">
+                           <HBox.margin>
+                              <Insets left="10.0" right="5.0" />
+                           </HBox.margin></Text>
+                        <TextField fx:id="car2VelocityTextField" prefHeight="16.0" prefWidth="69.0">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin></TextField>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m/s">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mass:">
+                           <HBox.margin>
+                              <Insets left="50.0" right="5.0" />
+                           </HBox.margin></Text>
+                        <TextField fx:id="car2MassTextField" prefHeight="21.0" prefWidth="73.0">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin></TextField>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="kg">
+                           <HBox.margin>
+                              <Insets right="250.0" />
+                           </HBox.margin></Text>
+                        <Button fx:id="playBtn" mnemonicParsing="false" text="Play" textFill="#359a29">
+                           <HBox.margin>
+                              <Insets left="40.0" right="20.0" />
+                           </HBox.margin></Button>
+                        <Button fx:id="stopBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="47.0" text="Stop" textFill="#cd1616" />
+                     </children>
+                  </HBox>
+                    </items>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+                </ToolBar>
+            </children>
+        </VBox>
+    </top>
+    <bottom>
+        <ToolBar prefHeight="29.0" prefWidth="1235.0" BorderPane.alignment="CENTER">
+         <items>
+            <HBox prefHeight="19.0" prefWidth="1211.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duration:" />
+               </children>
+            </HBox>
+         </items>
+        </ToolBar>
+    </bottom>
+    <center>
+        <Pane prefHeight="731.0" prefWidth="1254.0" BorderPane.alignment="CENTER">
+         <children>
+            <Rectangle fx:id="car1" arcHeight="5.0" arcWidth="5.0" fill="#30ab2c" height="59.0" layoutX="148.0" layoutY="284.0" stroke="BLACK" strokeType="INSIDE" width="177.0" />
+            <Rectangle fx:id="car2" arcHeight="5.0" arcWidth="5.0" fill="#d71e14" height="59.0" layoutX="882.0" layoutY="284.0" stroke="BLACK" strokeType="INSIDE" width="177.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin></Pane>
+    </center>
+</BorderPane>
