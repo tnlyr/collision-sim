@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * TODO: is this necessary?
+ * TODO: is this necessary? bitches?
  * @link: https://openjfx.io/javadoc/18/
  * @see: Build Scripts/build.gradle
  * @author Bozos
@@ -17,12 +17,12 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UIDesignFinal1.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainApp.layout.fxml"));
         loader.setController(new MainAppController());
         Pane root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setTitle("Collision Simulator");
         stage.sizeToScene();
         stage.show();
