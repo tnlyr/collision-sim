@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="910.0" prefWidth="1235.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="910.0" prefWidth="1235.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <VBox prefHeight="163.0" prefWidth="1235.0" BorderPane.alignment="CENTER">
             <children>
@@ -144,6 +144,11 @@
                               <Insets left="40.0" right="20.0" />
                            </HBox.margin></Button>
                         <Button fx:id="stopBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="47.0" text="Stop" textFill="#cd1616" />
+                        <Button mnemonicParsing="false" text="Reset" textFill="#0078f8" translateX="20.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
                      </children>
                   </HBox>
                     </items>

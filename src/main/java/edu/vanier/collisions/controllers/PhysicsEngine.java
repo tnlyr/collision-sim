@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class PhysicsEngine {
     private static PhysicsEngine instance = null;
     private final double GRAVITY = 9.8;
-    private final double TIME_STEP = 0.01;
+    private final double TIME_STEP = 0.1;
     // TODO: implement restitutions
     private double coefficientOfRestitution;
     private double coefficientOfFriction;
