@@ -71,7 +71,7 @@
                                     <Insets />
                                  </GridPane.margin>
                               </Slider>
-                                    <MenuButton mnemonicParsing="false" text="Terrain Type" GridPane.columnIndex="2">
+                                    <MenuButton fx:id="terrainType" mnemonicParsing="false" text="Terrain Type" GridPane.columnIndex="2">
                                         <items>
                                             <MenuItem mnemonicParsing="false" text="Rami t pa bo" />
                                             <MenuItem mnemonicParsing="false" text="Ben t bo" />
@@ -83,7 +83,7 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Elasticity Levels" wrappingWidth="97.86865234375" GridPane.columnIndex="5" />
                               <Slider fx:id="physicSlider" blockIncrement="0.1" majorTickUnit="0.5" max="2.0" minorTickCount="1" prefHeight="38.0" prefWidth="121.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                                     <Button fx:id="exportBtn" mnemonicParsing="false" text="Export Options" GridPane.columnIndex="6" />
-                                    <Button fx:id="ImportBtn" mnemonicParsing="false" text="Import Options" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                                    <Button fx:id="importBtn" mnemonicParsing="false" text="Import Options" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children>
@@ -144,7 +144,7 @@
                               <Insets left="40.0" right="20.0" />
                            </HBox.margin></Button>
                         <Button fx:id="stopBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="47.0" text="Stop" textFill="#cd1616" />
-                        <Button mnemonicParsing="false" text="Reset" textFill="#0078f8" translateX="20.0">
+                        <Button fx:id="resetBtn" mnemonicParsing="false" text="Reset" textFill="#0078f8" translateX="20.0">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -171,7 +171,7 @@
         </ToolBar>
     </bottom>
     <center>
-        <Pane prefHeight="731.0" prefWidth="1254.0" BorderPane.alignment="CENTER">
+        <Pane prefHeight="741.0" prefWidth="1235.0" BorderPane.alignment="CENTER">
          <children>
             <Rectangle fx:id="car1" arcHeight="5.0" arcWidth="5.0" fill="#30ab2c" height="59.0" layoutX="148.0" layoutY="284.0" stroke="BLACK" strokeType="INSIDE" width="177.0" />
             <Rectangle fx:id="car2" arcHeight="5.0" arcWidth="5.0" fill="#d71e14" height="59.0" layoutX="882.0" layoutY="284.0" stroke="BLACK" strokeType="INSIDE" width="177.0" />
