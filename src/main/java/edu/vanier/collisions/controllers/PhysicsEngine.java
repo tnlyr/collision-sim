@@ -1,17 +1,18 @@
 package edu.vanier.collisions.controllers;
 
-import edu.vanier.collisions.models.Entity;
-
+import edu.vanier.collisions.models.PhysicsEntity;
+import edu.vanier.collisions.models.Terrain;
+import javafx.util.Duration;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class PhysicsEngine {
+public class PhysicsEngine implements Serializable {
     private static PhysicsEngine instance = null;
-    private final double GRAVITY = 9.8;
-    private final double TIME_STEP = 0.1;
-    // TODO: implement restitutions
-    private double coefficientOfRestitution;
-    private double coefficientOfFriction;
-    private ArrayList<Entity> entities = new ArrayList<>();
+    private double playbackSpeed = 1;
+    private Terrain terrain;
+    private double restitutionCoefficient;
+    private ArrayList<PhysicsEntity> entities = new ArrayList<>();
 
     private PhysicsEngine() {
     }
@@ -23,37 +24,78 @@ public class PhysicsEngine {
         return instance;
     }
 
-    public double getCoefficientOfRestitution() {
-        return coefficientOfRestitution;
+    // TODO: implement gravity & friction
+    // TODO: create collision object (ugly return type currently)
+    private double[] computeCollision() {
+        double posXDelta = entities.get(0).getRelativePosition() - entities.get(1).getRelativePosition();
+        double speedXDelta = entities.get(1).getSpeedX() - entities.get(0).getSpeedX();
+        double timeOfCollision = posXDelta / speedXDelta;
+        double posOfCollision = timeOfCollision * entities.get(0).getSpeedX() + entities.get(0).getRelativePosition();
+        System.out.printf("Collision with delta %f at %f in %f seconds \n", posXDelta, posOfCollision, timeOfCollision);
+        return new double[]{posOfCollision, timeOfCollision};
     }
 
-    public void setCoefficientOfRestitution(double coefficientOfRestitution) {
-        this.coefficientOfRestitution = coefficientOfRestitution;
+    // TODO: disambiguate init and collision setup
+    public void init() {
+        double[] collision = computeCollision();
+        double posOfCollision = collision[0];
+        double timeOfCollision = collision[1];
+        for (PhysicsEntity entity : entities) {
+            entity.getTranslateTransition().setDuration(Duration.seconds(timeOfCollision / playbackSpeed));
+            System.out.printf("Transition By %f X\n", (posOfCollision-entity.getRelativePosition()));
+            entity.getTranslateTransition().setByX(posOfCollision-entity.getRelativePosition());
+        }
+        // TODO: implement collision restitution
     }
 
-    public double getCoefficientOfFriction() {
-        return coefficientOfFriction;
+    public void play() {
+        for (PhysicsEntity entity : entities) {
+            entity.play();
+        }
     }
 
-    public void setCoefficientOfFriction(double coefficientOfFriction) {
-        this.coefficientOfFriction = coefficientOfFriction;
+    public void pause() {
+        for (PhysicsEntity entity : entities) {
+            entity.pause();
+        }
     }
 
-    public ArrayList<Entity> getEntities() {
+    public void reset() {
+        for (PhysicsEntity entity : entities) {
+            entity.reset();
+        }
+    }
+
+    public double getPlaybackSpeed() {
+        return playbackSpeed;
+    }
+
+    public void setPlaybackSpeed(double playbackSpeed) {
+        this.playbackSpeed = playbackSpeed;
+    }
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
+    }
+
+    public double getRestitutionCoefficient() {
+        return restitutionCoefficient;
+    }
+
+    public void setRestitutionCoefficient(double restitutionCoefficient) {
+        this.restitutionCoefficient = restitutionCoefficient;
+    }
+
+    public ArrayList<PhysicsEntity> getEntities() {
         return entities;
     }
 
-    public void addEntity(Entity entity) {
-        this.entities.add(entity);
-    }
-
-    // TODO: implement collisions
-
-    public void next() {
-        for (Entity entity : entities) {
-            double friction = GRAVITY * coefficientOfFriction * entity.getMass();
-            entity.setSpeedX(entity.getSpeedX() + friction * TIME_STEP);
-            entity.setPosX(entity.getPosX() + entity.getSpeedX() * TIME_STEP);
-        }
+    public void setEntities(PhysicsEntity... entities) {
+        this.entities = new ArrayList<>(entities.length);
+        Collections.addAll(this.entities, entities);
     }
 }

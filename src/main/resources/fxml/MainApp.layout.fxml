@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
+<?import edu.vanier.collisions.models.PhysicsEntity?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="910.0" prefWidth="1235.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
@@ -173,8 +173,8 @@
     <center>
         <Pane prefHeight="741.0" prefWidth="1235.0" BorderPane.alignment="CENTER">
          <children>
-            <Rectangle fx:id="car1" arcHeight="5.0" arcWidth="5.0" fill="#30ab2c" height="59.0" layoutX="148.0" layoutY="284.0" stroke="BLACK" strokeType="INSIDE" width="177.0" />
-            <Rectangle fx:id="car2" arcHeight="5.0" arcWidth="5.0" fill="#d71e14" height="59.0" layoutX="882.0" layoutY="284.0" stroke="BLACK" strokeType="INSIDE" width="177.0" />
+            <PhysicsEntity fx:id="car1" arcHeight="5.0" arcWidth="5.0" fill="#30ab2c" height="59.0" layoutX="148.0" layoutY="284.0" stroke="BLACK" strokeType="INSIDE" width="177.0" />
+            <PhysicsEntity fx:id="car2" arcHeight="5.0" arcWidth="5.0" fill="#d71e14" height="59.0" layoutX="882.0" layoutY="284.0" stroke="BLACK" strokeType="INSIDE" width="177.0" />
          </children>
          <BorderPane.margin>
             <Insets />
