@@ -7,7 +7,7 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -16,10 +16,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import edu.vanier.collisions.models.PhysicsEntity?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="910.0" prefWidth="1235.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<?import edu.vanier.collisions.models.PhysicsEntity?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="910.0" prefWidth="1235.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <VBox prefHeight="163.0" prefWidth="1235.0" BorderPane.alignment="CENTER">
             <children>
@@ -73,8 +74,9 @@
                               </Slider>
                                     <MenuButton fx:id="terrainType" mnemonicParsing="false" text="Terrain Type" GridPane.columnIndex="2">
                                         <items>
-                                            <MenuItem mnemonicParsing="false" text="Rami t pa bo" />
-                                            <MenuItem mnemonicParsing="false" text="Ben t bo" />
+                                            <MenuItem fx:id="terrain1" mnemonicParsing="false" text="Rami t pa bo" />
+                                            <MenuItem fx:id="terrain2" mnemonicParsing="false" text="Ben t bo" />
+                                    <MenuItem fx:id="terrain3" mnemonicParsing="false" text="Lounes le boss" />
                                         </items>
                                  <GridPane.margin>
                                     <Insets />
@@ -94,11 +96,11 @@
                     <items>
                   <HBox alignment="CENTER" prefHeight="35.0" prefWidth="1216.0">
                      <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car 1:">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car 1:" underline="true">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin></Text>
-                              <TextField fx:id="car1VelocityTextField" prefHeight="16.0" prefWidth="69.0" />
+                        <Spinner fx:id="car1Velocity" editable="true" prefHeight="26.0" prefWidth="74.0" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m/s">
                            <HBox.margin>
                               <Insets left="5.0" right="10.0" />
@@ -107,22 +109,19 @@
                            <HBox.margin>
                               <Insets left="50.0" />
                            </HBox.margin></Text>
-                              <TextField fx:id="car1MassTextField" prefHeight="21.0" prefWidth="73.0">
-                           <HBox.margin>
-                              <Insets left="5.0" right="10.0" />
-                           </HBox.margin></TextField>
+                        <Spinner fx:id="car1Mass" editable="true" prefHeight="30.0" prefWidth="72.0" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="kg">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin></Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car 2:">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Position:" />
+                        <Spinner fx:id="car1Position" editable="true" prefHeight="25.0" prefWidth="78.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car 2:" underline="true">
                            <HBox.margin>
                               <Insets left="10.0" right="5.0" />
                            </HBox.margin></Text>
-                        <TextField fx:id="car2VelocityTextField" prefHeight="16.0" prefWidth="69.0">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin></TextField>
+                        <Spinner fx:id="car2Velocity" editable="true" prefHeight="25.0" prefWidth="69.0" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m/s">
                            <HBox.margin>
                               <Insets right="10.0" />
@@ -131,24 +130,16 @@
                            <HBox.margin>
                               <Insets left="50.0" right="5.0" />
                            </HBox.margin></Text>
-                        <TextField fx:id="car2MassTextField" prefHeight="21.0" prefWidth="73.0">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin></TextField>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="kg">
-                           <HBox.margin>
-                              <Insets right="250.0" />
-                           </HBox.margin></Text>
-                        <Button fx:id="playBtn" mnemonicParsing="false" text="Play" textFill="#359a29">
+                        <Spinner fx:id="car2Mass" editable="true" prefHeight="25.0" prefWidth="72.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="kg" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Position: " />
+                        <Spinner fx:id="car2Position" editable="true" prefHeight="25.0" prefWidth="80.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m" />
+                        <Button fx:id="playBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="64.0" text="Play/Pause" textFill="#359a29">
                            <HBox.margin>
                               <Insets left="40.0" right="20.0" />
                            </HBox.margin></Button>
-                        <Button fx:id="stopBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="47.0" text="Stop" textFill="#cd1616" />
-                        <Button fx:id="resetBtn" mnemonicParsing="false" text="Reset" textFill="#0078f8" translateX="20.0">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Button>
+                        <Button fx:id="resetBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="47.0" text="Reset" textFill="#cd1616" />
                      </children>
                   </HBox>
                     </items>
@@ -173,8 +164,8 @@
     <center>
         <Pane prefHeight="741.0" prefWidth="1235.0" BorderPane.alignment="CENTER">
          <children>
-            <PhysicsEntity fx:id="car1" arcHeight="5.0" arcWidth="5.0" fill="#30ab2c" height="59.0" layoutX="148.0" layoutY="284.0" stroke="BLACK" strokeType="INSIDE" width="177.0" />
-            <PhysicsEntity fx:id="car2" arcHeight="5.0" arcWidth="5.0" fill="#d71e14" height="59.0" layoutX="882.0" layoutY="284.0" stroke="BLACK" strokeType="INSIDE" width="177.0" />
+             <PhysicsEntity fx:id="car1" arcHeight="5.0" arcWidth="5.0" fill="#30ab2c" height="59.0" layoutX="148.0" layoutY="284.0" stroke="BLACK" strokeType="INSIDE" width="177.0" />
+             <PhysicsEntity fx:id="car2" arcHeight="5.0" arcWidth="5.0" fill="#d71e14" height="59.0" layoutX="882.0" layoutY="284.0" stroke="BLACK" strokeType="INSIDE" width="177.0" />
          </children>
          <BorderPane.margin>
             <Insets />

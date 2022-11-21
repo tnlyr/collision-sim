@@ -9,14 +9,14 @@ public class MainAppController {
     @FXML
     PhysicsEntity car1, car2;
     @FXML
-    Button playBtn, stopBtn, resetBtn, importBtn, exportBtn;
+    Button playBtn, resetBtn, importBtn, exportBtn;
     @FXML
-    // TODO: replace with number spinners
-    TextField car1VelocityTextField, car1MassTextField, car2VelocityTextField, car2MassTextField;
+    Spinner<Integer> car1Velocity, car1Mass, car1Position, car2Velocity, car2Mass, car2Position;
     @FXML
     Slider playbackSlider, physicSlider;
     @FXML
     MenuButton terrainType;
+    MenuItem terrain1, terrain2, terrain3;
     @FXML
     Menu fileMenuBarbtn, editMenuBarbtn, helpMenuBarbtn;
 
@@ -41,27 +41,20 @@ public class MainAppController {
             onPlay();
         });
 
-        stopBtn.setOnAction(e -> {
-            onPause();
+        resetBtn.setOnAction(e -> {
+            onReset();
         });
     }
 
-    // TODO: bind the ui controls to the following methods
-    // physicsEngine.setPlaybackSpeed()
-    // physicsEngine.setTerrain()
-    // physicsEngine.setRestitutionCoefficient()
-    // car1.setInitialPosX();
-    // car1.setSpeedX();
-    // car1.setMass();
-    // car2.setInitialPosX();
-    // car2.setSpeedX();
-    // car2.setMass();
-
-    // TODO: create dummy methods for the following
-    // onImport() (importBtn.setOnAction())
-    // onExport() (exportBtn.setOnAction())
-    // onHelp() (helpMenuBarbtn.setOnAction())
-
+    // FIXME : physicsEngine.setPlaybackSpeed()
+    // FIXME : physicsEngine.setTerrain()
+    // FIXME : physicsEngine.setRestitutionCoefficient()
+    // DONE : car1.setInitialPosX();
+    // DONE : car1.setSpeedX();
+    // DONE : car1.setMass();
+    // DONE : car2.setInitialPosX();
+    // DONE : car2.setSpeedX();
+    // DONE : car2.setMass();
 
     private void onPlay() {
         physicsEngine.play();
@@ -75,4 +68,70 @@ public class MainAppController {
     private void onReset() {
         physicsEngine.reset();
     }
+
+    private void onImport() { //TODO: implement import
+        importBtn.setOnAction(e -> {
+            throw new UnsupportedOperationException("TODO");
+        });
+    }
+
+    private void onExport() { //TODO: implement export
+        exportBtn.setOnAction(e -> {
+            throw new UnsupportedOperationException("TODO");
+        });
+    }
+
+    private void onHelp() { //TODO: implement help
+        helpMenuBarbtn.setOnAction(e -> {
+            throw new UnsupportedOperationException("TODO");
+        });
+    }
+
+    private void onPlaybackSliderChange() {
+        int sliderValue = (int) playbackSlider.getValue();
+        physicsEngine.setPlaybackSpeed(sliderValue);
+    }
+
+    private void onPhysicSliderChange() {
+        int sliderValue = (int) physicSlider.getValue();
+        physicsEngine.setRestitutionCoefficient(sliderValue);
+    }
+
+    private void onTerrainChange() {
+        terrainType.setOnAction(e -> {
+            throw new UnsupportedOperationException("TODO");
+        });
+    }
+
+    private void setCar1Velocity() {
+        int velocity = car1Velocity.getValue();
+        car1.setSpeedX(velocity);
+    }
+
+    private void setCar1Mass() {
+        int mass = car1Mass.getValue();
+        car1.setMass(mass);
+    }
+
+    private void setCar1Position() {
+        int position = car1Position.getValue();
+        car1.setInitialPosX(position);
+    }
+
+    private void setCar2Velocity() {
+        int velocity = car2Velocity.getValue();
+        car2.setSpeedX(velocity);
+    }
+
+    private void setCar2Mass() {
+        int mass = car2Mass.getValue();
+        car2.setMass(mass);
+    }
+
+    private void setCar2Position() {
+        int position = car2Position.getValue();
+        car2.setInitialPosX(position);
+    }
+
+
 }
