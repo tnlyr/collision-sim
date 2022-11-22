@@ -12,7 +12,7 @@ public class MainAppController {
 
     PhysicsEntity car1, car2;
     @FXML
-    Button playBtn, resetBtn, importBtn, exportBtn;
+    Button playBtn, resetBtn;
     @FXML
     Spinner<Double> car1Velocity, car1Mass, car1Position, car2Velocity, car2Mass, car2Position;
     @FXML
@@ -92,14 +92,6 @@ public class MainAppController {
             onReset();
         });
 
-        importBtn.setOnAction(e -> {
-            onImport();
-        });
-
-        exportBtn.setOnAction(e -> {
-            onExport();
-        });
-
         car1Velocity.valueProperty().addListener((obs, oldValue, newValue) -> {
             car1.setSpeedX(newValue);
         });
@@ -161,15 +153,11 @@ public class MainAppController {
     }
 
     private void onImport() { //TODO: implement import
-        importBtn.setOnAction(e -> {
-            throw new UnsupportedOperationException("TODO");
-        });
+
     }
 
     private void onExport() { //TODO: implement export
-        exportBtn.setOnAction(e -> {
-            throw new UnsupportedOperationException("TODO");
-        });
+
     }
 
     private void onHelp() { //TODO: implement help
