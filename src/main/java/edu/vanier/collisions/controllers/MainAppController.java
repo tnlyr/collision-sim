@@ -20,6 +20,9 @@ public class MainAppController {
     @FXML
     Menu fileMenuBarbtn, editMenuBarbtn, helpMenuBarbtn;
 
+    boolean isPlaying = false;
+
+
     PhysicsEngine physicsEngine = PhysicsEngine.getInstance();
 
     @FXML
@@ -38,7 +41,12 @@ public class MainAppController {
         physicsEngine.init();
 
         playBtn.setOnAction(e -> {
-            onPlay();
+            if (!isPlaying){
+                onPlay();
+            }
+            else{
+                onPause();
+            }
         });
 
         resetBtn.setOnAction(e -> {
@@ -98,11 +106,15 @@ public class MainAppController {
 
     private void onPlay() {
         physicsEngine.play();
+        playBtn.setText("Pause");
+        isPlaying = true;
     }
 
-    // TODO: remove pause button, instead make play button toggleable (play/pause)
+    // DONE: remove pause button, instead make play button toggleable (play/pause)
     private void onPause() {
         physicsEngine.pause();
+        playBtn.setText("Play");
+        isPlaying = false;
     }
 
     private void onReset() {
