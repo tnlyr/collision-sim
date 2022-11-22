@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import java.io.*;
+import java.util.Arrays;
 
 public class MainAppController {
     @FXML
@@ -21,7 +22,6 @@ public class MainAppController {
     Slider playbackSlider, physicSlider;
     @FXML
     MenuButton terrainType;
-    MenuItem terrain1, terrain2, terrain3;
     @FXML
     Menu fileMenuBarbtn, editMenuBarbtn, helpMenuBarbtn;
     @FXML
@@ -135,6 +135,15 @@ public class MainAppController {
         collisionContainer.widthProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("New width: "+newValue);
             //- resize or reposition our cars.
+        });
+
+        Arrays.stream(Terrain.values()).forEach(terrain -> {
+            MenuItem item = new MenuItem(terrain.toString());
+            item.setOnAction(e -> {
+                physicsEngine.setTerrain(terrain);
+                terrainType.setText(terrain.toString());
+            });
+            terrainType.getItems().add(item);
         });
     }
 

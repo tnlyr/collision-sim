@@ -51,13 +51,7 @@
                   <Slider fx:id="physicSlider" blockIncrement="0.1" majorTickUnit="0.25" max="1.0" minorTickCount="1" showTickLabels="true" snapToTicks="true" value="1.0" />
                </children>
             </HBox>
-            <MenuButton fx:id="terrainType" alignment="CENTER" mnemonicParsing="false" text="Terrain Type">
-               <items>
-                  <MenuItem fx:id="terrain1" mnemonicParsing="false" text="Rami t pa bo" />
-                  <MenuItem fx:id="terrain2" mnemonicParsing="false" text="Ben t bo" />
-                  <MenuItem fx:id="terrain3" mnemonicParsing="false" text="Lounes le boss" />
-               </items>
-            </MenuButton>
+            <MenuButton fx:id="terrainType" alignment="CENTER" mnemonicParsing="false" text="Terrain Type"/>
             <HBox alignment="CENTER" spacing="10.0">
                <children>
                   <Button fx:id="playBtn" mnemonicParsing="false" text="Play" textFill="#359a29" HBox.hgrow="ALWAYS">
