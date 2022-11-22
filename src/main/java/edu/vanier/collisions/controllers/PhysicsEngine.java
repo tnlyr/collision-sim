@@ -24,6 +24,10 @@ public class PhysicsEngine implements Serializable {
         return instance;
     }
 
+    public void setInstance(PhysicsEngine newInstance) {
+        instance = newInstance;
+    }
+
     // TODO: implement gravity & friction
     // TODO: create collision object (ugly return type currently)
     private double[] computeCollision() {
