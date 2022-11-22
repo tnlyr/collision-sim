@@ -5,6 +5,8 @@ import edu.vanier.collisions.models.Terrain;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import java.io.*;
 
 public class MainAppController {
     @FXML
@@ -22,6 +24,8 @@ public class MainAppController {
     MenuItem terrain1, terrain2, terrain3;
     @FXML
     Menu fileMenuBarbtn, editMenuBarbtn, helpMenuBarbtn;
+    @FXML
+    MenuItem exportBtn, importBtn;
 
     boolean isPlaying = false;
 
@@ -92,6 +96,22 @@ public class MainAppController {
             onReset();
         });
 
+        importBtn.setOnAction(e -> {
+            try {
+                onImport();
+            } catch (IOException | ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        exportBtn.setOnAction(e -> {
+            try {
+                onExport();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
         car1Velocity.valueProperty().addListener((obs, oldValue, newValue) -> {
             car1.setSpeedX(newValue);
         });
@@ -141,7 +161,6 @@ public class MainAppController {
         isPlaying = true;
     }
 
-    // DONE: remove pause button, instead make play button toggleable (play/pause)
     private void onPause() {
         physicsEngine.pause();
         playBtn.setText("Play");
@@ -150,14 +169,34 @@ public class MainAppController {
 
     private void onReset() {
         physicsEngine.reset();
+        playBtn.setText("Play");
+        isPlaying = false;
     }
 
-    private void onImport() { //TODO: implement import
-
+    private void onImport() throws IOException, ClassNotFoundException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        // TODO: onCancel
+        String filePath = fileChooser.showOpenDialog(null).getAbsolutePath();
+        FileInputStream fileInt = new FileInputStream(filePath);
+        ObjectInputStream objInt = new ObjectInputStream(fileInt);
+        PhysicsEngine newPhysicsEngine = (PhysicsEngine) objInt.readObject();
+        physicsEngine.setInstance(newPhysicsEngine);
+        objInt.close();
+        fileInt.close();
     }
 
-    private void onExport() { //TODO: implement export
-
+    private void onExport() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Simulation");
+        fileChooser.setInitialFileName("simulation.sim");
+        // TODO: onCancel
+        String filePath = fileChooser.showSaveDialog(null).getAbsolutePath();
+        FileOutputStream fileOut = new FileOutputStream(filePath);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(physicsEngine);
+        out.close();
+        fileOut.close();
     }
 
     private void onHelp() { //TODO: implement help
