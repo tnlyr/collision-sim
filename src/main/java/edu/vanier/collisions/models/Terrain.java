@@ -25,6 +25,6 @@ public enum Terrain {
         this.gravity = EARTH_GRAVITY;
     }
 
-    private double frictionCoefficient() { return frictionCoefficient; }
-    private double gravity() { return gravity; }
+    public double frictionCoefficient() { return frictionCoefficient; }
+    public double gravity() { return gravity; }
 }
