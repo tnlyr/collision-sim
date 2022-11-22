@@ -14,7 +14,7 @@ public class MainAppController {
     @FXML
     Button playBtn, resetBtn, importBtn, exportBtn;
     @FXML
-    Spinner<Integer> car1Velocity, car1Mass, car1Position, car2Velocity, car2Mass, car2Position;
+    Spinner<Double> car1Velocity, car1Mass, car1Position, car2Velocity, car2Mass, car2Position;
     @FXML
     Slider playbackSlider, physicSlider;
     @FXML
@@ -59,6 +59,18 @@ public class MainAppController {
         car2.setInitialPosX(200);
         car2.setSpeedX(-40);
         car2.setMass(800);
+
+        SpinnerValueFactory<Double> carVelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,20,1);
+        car1Velocity.setValueFactory(carVelocitySlider);
+        car2Velocity.setValueFactory(carVelocitySlider);
+
+        SpinnerValueFactory<Double> massSlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,10,1);
+        car1Mass.setValueFactory(massSlider);
+        car2Mass.setValueFactory(massSlider);
+
+        SpinnerValueFactory<Double> posSlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,10,1);
+        car1Position.setValueFactory(posSlider);
+        car2Position.setValueFactory(posSlider);
 
         collisionContainer.getChildren().addAll(car1, car2);
         // TODO: remove below test code once controls are implemented
@@ -118,6 +130,11 @@ public class MainAppController {
 
         physicSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             onPhysicSliderChange();
+        });
+
+        collisionContainer.widthProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("New width: "+newValue);
+            //- resize or reposition our cars.
         });
     }
 
@@ -179,32 +196,32 @@ public class MainAppController {
     }
 
     private void setCar1Velocity() {
-        int velocity = car1Velocity.getValue();
+        double velocity = car1Velocity.getValue();
         car1.setSpeedX(velocity);
     }
 
     private void setCar1Mass() {
-        int mass = car1Mass.getValue();
+        double mass = car1Mass.getValue();
         car1.setMass(mass);
     }
 
     private void setCar1Position() {
-        int position = car1Position.getValue();
+        double position = car1Position.getValue();
         car1.setInitialPosX(position);
     }
 
     private void setCar2Velocity() {
-        int velocity = car2Velocity.getValue();
+        double velocity = car2Velocity.getValue();
         car2.setSpeedX(velocity);
     }
 
     private void setCar2Mass() {
-        int mass = car2Mass.getValue();
+        double mass = car2Mass.getValue();
         car2.setMass(mass);
     }
 
     private void setCar2Position() {
-        int position = car2Position.getValue();
+        double position = car2Position.getValue();
         car2.setInitialPosX(position);
     }
 

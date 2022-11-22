@@ -25,6 +25,7 @@ public class MainApp extends Application {
         stage.setResizable(true);
         stage.setTitle("Collision Simulator");
         stage.sizeToScene();
+        stage.getIcons().getClass().getResource("");
         stage.show();
     }
 
