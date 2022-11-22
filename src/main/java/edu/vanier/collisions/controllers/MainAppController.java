@@ -4,9 +4,12 @@ import edu.vanier.collisions.models.PhysicsEntity;
 import edu.vanier.collisions.models.Terrain;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 
 public class MainAppController {
     @FXML
+    Pane collisionContainer;
+
     PhysicsEntity car1, car2;
     @FXML
     Button playBtn, resetBtn, importBtn, exportBtn;
@@ -28,13 +31,37 @@ public class MainAppController {
     @FXML
     private void initialize() {
         System.out.println("MainAppController.initialize()...");
-        // TODO: remove below test code once controls are implemented
+
+        car1 = new PhysicsEntity();
+        car1.setArcHeight(5.0);
+        car1.setArcWidth(5.0);
+        car1.setFill(javafx.scene.paint.Color.valueOf("#30ab2c"));
+        car1.setHeight(59.0);
+        car1.setLayoutX(148.0);
+        car1.setLayoutY(284.0);
+        car1.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
+        car1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
+        car1.setWidth(177.0);
         car1.setInitialPosX(100);
         car1.setSpeedX(20);
         car1.setMass(1000);
+
+        car2 = new PhysicsEntity();
+        car2.setArcHeight(5.0);
+        car2.setArcWidth(5.0);
+        car2.setFill(javafx.scene.paint.Color.valueOf("#d71e14"));
+        car2.setHeight(59.0);
+        car2.setLayoutX(882.0);
+        car2.setLayoutY(284.0);
+        car2.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
+        car2.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
+        car2.setWidth(177.0);
         car2.setInitialPosX(200);
         car2.setSpeedX(-40);
         car2.setMass(800);
+
+        collisionContainer.getChildren().addAll(car1, car2);
+        // TODO: remove below test code once controls are implemented
         physicsEngine.setEntities(car1, car2);
         physicsEngine.setTerrain(Terrain.GRASS);
         physicsEngine.setRestitutionCoefficient(0.8);
@@ -94,15 +121,10 @@ public class MainAppController {
         });
     }
 
+    // TODO: implement action handlers
     // FIXME : physicsEngine.setPlaybackSpeed()
     // FIXME : physicsEngine.setTerrain()
     // FIXME : physicsEngine.setRestitutionCoefficient()
-    // DONE : car1.setInitialPosX();
-    // DONE : car1.setSpeedX();
-    // DONE : car1.setMass();
-    // DONE : car2.setInitialPosX();
-    // DONE : car2.setSpeedX();
-    // DONE : car2.setMass();
 
     private void onPlay() {
         physicsEngine.play();
