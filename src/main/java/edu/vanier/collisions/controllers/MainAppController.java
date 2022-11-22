@@ -16,7 +16,7 @@ public class MainAppController {
     @FXML
     Button playBtn, resetBtn;
     @FXML
-    Spinner<Double> car1Velocity, car1Mass, car1Position, car2Velocity, car2Mass, car2Position;
+    Spinner<Double> car1Velocity, car1Mass, car2Velocity, car2Mass;
     @FXML
     Slider playbackSlider, physicSlider;
     @FXML
@@ -72,10 +72,6 @@ public class MainAppController {
         car1Mass.setValueFactory(massSlider);
         car2Mass.setValueFactory(massSlider);
 
-        SpinnerValueFactory<Double> posSlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,10,1);
-        car1Position.setValueFactory(posSlider);
-        car2Position.setValueFactory(posSlider);
-
         collisionContainer.getChildren().addAll(car1, car2);
         // TODO: remove below test code once controls are implemented
         physicsEngine.setEntities(car1, car2);
@@ -120,20 +116,12 @@ public class MainAppController {
             car1.setMass(newValue);
         });
 
-        car1Position.valueProperty().addListener((obs, oldValue, newValue) -> {
-            car1.setInitialPosX(newValue);
-        });
-
         car2Velocity.valueProperty().addListener((obs, oldValue, newValue) -> {
             car2.setSpeedX(newValue);
         });
 
         car2Mass.valueProperty().addListener((obs, oldValue, newValue) -> {
             car2.setMass(newValue);
-        });
-
-        car2Position.valueProperty().addListener((obs, oldValue, newValue) -> {
-            car2.setInitialPosX(newValue);
         });
 
         playbackSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -232,11 +220,6 @@ public class MainAppController {
         car1.setMass(mass);
     }
 
-    private void setCar1Position() {
-        double position = car1Position.getValue();
-        car1.setInitialPosX(position);
-    }
-
     private void setCar2Velocity() {
         double velocity = car2Velocity.getValue();
         car2.setSpeedX(velocity);
@@ -246,11 +229,4 @@ public class MainAppController {
         double mass = car2Mass.getValue();
         car2.setMass(mass);
     }
-
-    private void setCar2Position() {
-        double position = car2Position.getValue();
-        car2.setInitialPosX(position);
-    }
-
-
 }
