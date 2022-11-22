@@ -3,9 +3,10 @@ package edu.vanier.collisions.models;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
+import java.io.Serializable;
 
-public class PhysicsEntity extends Rectangle {
-    private TranslateTransition translateTransition;
+public class PhysicsEntity extends Rectangle implements Serializable {
+    private transient TranslateTransition translateTransition;
     private double initialPosX, speedX, mass;
 
     public PhysicsEntity() {
