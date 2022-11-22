@@ -23,6 +23,9 @@ public class MainAppController {
     @FXML
     Menu fileMenuBarbtn, editMenuBarbtn, helpMenuBarbtn;
 
+    boolean isPlaying = false;
+
+
     PhysicsEngine physicsEngine = PhysicsEngine.getInstance();
 
     @FXML
@@ -65,11 +68,56 @@ public class MainAppController {
         physicsEngine.init();
 
         playBtn.setOnAction(e -> {
-            onPlay();
+            if (!isPlaying){
+                onPlay();
+            }
+            else{
+                onPause();
+            }
         });
 
         resetBtn.setOnAction(e -> {
             onReset();
+        });
+
+        importBtn.setOnAction(e -> {
+            onImport();
+        });
+
+        exportBtn.setOnAction(e -> {
+            onExport();
+        });
+
+        car1Velocity.valueProperty().addListener((obs, oldValue, newValue) -> {
+            car1.setSpeedX(newValue);
+        });
+
+        car1Mass.valueProperty().addListener((obs, oldValue, newValue) -> {
+            car1.setMass(newValue);
+        });
+
+        car1Position.valueProperty().addListener((obs, oldValue, newValue) -> {
+            car1.setInitialPosX(newValue);
+        });
+
+        car2Velocity.valueProperty().addListener((obs, oldValue, newValue) -> {
+            car2.setSpeedX(newValue);
+        });
+
+        car2Mass.valueProperty().addListener((obs, oldValue, newValue) -> {
+            car2.setMass(newValue);
+        });
+
+        car2Position.valueProperty().addListener((obs, oldValue, newValue) -> {
+            car2.setInitialPosX(newValue);
+        });
+
+        playbackSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            onPlaybackSliderChange();
+        });
+
+        physicSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            onPhysicSliderChange();
         });
     }
 
@@ -80,11 +128,15 @@ public class MainAppController {
 
     private void onPlay() {
         physicsEngine.play();
+        playBtn.setText("Pause");
+        isPlaying = true;
     }
 
-    // TODO: remove pause button, instead make play button toggleable (play/pause)
+    // DONE: remove pause button, instead make play button toggleable (play/pause)
     private void onPause() {
         physicsEngine.pause();
+        playBtn.setText("Play");
+        isPlaying = false;
     }
 
     private void onReset() {
