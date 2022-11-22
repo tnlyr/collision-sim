@@ -162,6 +162,11 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Position: " />
                         <Spinner fx:id="car2Position" editable="true" prefHeight="25.0" prefWidth="80.0" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m" />
+                        <Button fx:id="playBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="64.0" text="Play/Pause" textFill="#359a29">
+                           <HBox.margin>
+                              <Insets left="40.0" right="20.0" />
+                           </HBox.margin></Button>
+                        <Button fx:id="resetBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="47.0" text="Reset" textFill="#cd1616" />
                      </children>
                   </HBox>
                     </items>

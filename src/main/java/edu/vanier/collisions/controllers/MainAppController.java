@@ -164,6 +164,7 @@ public class MainAppController {
     private void onPlaybackSliderChange() {
         int sliderValue = (int) playbackSlider.getValue();
         physicsEngine.setPlaybackSpeed(sliderValue);
+        //System.out.println(sliderValue);
     }
 
     private void onPhysicSliderChange() {
