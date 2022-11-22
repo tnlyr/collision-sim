@@ -24,8 +24,8 @@
                     <menus>
                         <Menu fx:id="fileMenuBarbtn" mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Import " />
-                        <MenuItem mnemonicParsing="false" text="Export" />
+                                <MenuItem fx:id="importBtn" mnemonicParsing="false" text="Import Simulation..." />
+                                <MenuItem fx:id="exportBtn" mnemonicParsing="false" text="Export Simulation..." />
                             </items>
                         </Menu>
                         <Menu fx:id="editMenuBarbtn" mnemonicParsing="false" text="Edit">
@@ -88,7 +88,7 @@
                         </VBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                            <children>
-                              <Button fx:id="playBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="99.0" text="Play/Pause" textFill="#359a29" HBox.hgrow="ALWAYS">
+                              <Button fx:id="playBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="99.0" text="Play" textFill="#359a29" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
@@ -104,69 +104,38 @@
                     <items>
                   <HBox alignment="CENTER" prefHeight="35.0" prefWidth="1258.0">
                      <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car 1">
+                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car 1 (m/s)">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Text>
                         <Spinner fx:id="car1Velocity" editable="true" prefHeight="26.0" prefWidth="74.0" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m/s">
-                           <HBox.margin>
-                              <Insets left="5.0" right="50.0" />
-                           </HBox.margin>
-                        </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mass">
+                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mass (kg)">
                            <HBox.margin>
                               <Insets left="35.0" right="5.0" />
                            </HBox.margin>
                         </Text>
                         <Spinner fx:id="car1Mass" editable="true" prefHeight="30.0" prefWidth="72.0" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="kg">
-                           <HBox.margin>
-                              <Insets left="5.0" right="50.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Position">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Position (m)">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Text>
                         <Spinner fx:id="car1Position" editable="true" prefHeight="25.0" prefWidth="78.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m">
-                           <HBox.margin>
-                              <Insets left="5.0" right="70.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car 2" textAlignment="JUSTIFY">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car 2 (m/s)" textAlignment="JUSTIFY">
                            <HBox.margin>
                               <Insets left="30.0" right="5.0" />
                            </HBox.margin>
                         </Text>
                         <Spinner fx:id="car2Velocity" editable="true" prefHeight="25.0" prefWidth="69.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m/s">
-                           <HBox.margin>
-                              <Insets left="5.0" right="50.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mass">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mass (kg)">
                            <HBox.margin>
                               <Insets left="35.0" right="5.0" />
                            </HBox.margin>
                         </Text>
                         <Spinner fx:id="car2Mass" editable="true" prefHeight="25.0" prefWidth="72.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="kg">
-                           <HBox.margin>
-                              <Insets left="5.0" right="50.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Position: " />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Position (m)" />
                         <Spinner fx:id="car2Position" editable="true" prefHeight="25.0" prefWidth="80.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m" />
-                        <Button fx:id="playBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="64.0" text="Play/Pause" textFill="#359a29">
-                           <HBox.margin>
-                              <Insets left="40.0" right="20.0" />
-                           </HBox.margin></Button>
-                        <Button fx:id="resetBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="47.0" text="Reset" textFill="#cd1616" />
                      </children>
                   </HBox>
                     </items>
