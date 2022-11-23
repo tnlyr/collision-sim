@@ -36,7 +36,7 @@ public class MainAppController {
         System.out.println("MainAppController.initialize()...");
 
         car1 = new PhysicsEntity();
-        /*car1.setArcHeight(5.0);
+        car1.setArcHeight(5.0);
         car1.setArcWidth(5.0);
         car1.setFill(javafx.scene.paint.Color.valueOf("#30ab2c"));
         car1.setHeight(59.0);
@@ -47,7 +47,7 @@ public class MainAppController {
         car1.setWidth(177.0);
         car1.setInitialPosX(100);
         car1.setSpeedX(20);
-        car1.setMass(1000);*/
+        car1.setMass(1000);
 
         car2 = new PhysicsEntity();
         car2.setArcHeight(5.0);
