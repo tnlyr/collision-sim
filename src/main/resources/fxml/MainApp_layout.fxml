@@ -51,15 +51,15 @@
                   <Slider fx:id="physicSlider" blockIncrement="0.1" majorTickUnit="0.25" max="1.0" minorTickCount="1" showTickLabels="true" snapToTicks="true" value="1.0" />
                </children>
             </HBox>
-            <MenuButton fx:id="terrainType" alignment="CENTER" mnemonicParsing="false" text="Terrain Type"/>
+            <MenuButton fx:id="terrainType" alignment="CENTER" mnemonicParsing="false" text="Terrain Type" />
             <HBox alignment="CENTER" spacing="10.0">
                <children>
-                  <Button fx:id="playBtn" mnemonicParsing="false" text="Play" textFill="#359a29" HBox.hgrow="ALWAYS">
+                  <Button fx:id="playBtn" mnemonicParsing="false" prefWidth="60.0" text="Play" textFill="#359a29" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="resetBtn" mnemonicParsing="false" text="Reset" textFill="#cd1616" />
+                  <Button fx:id="resetBtn" mnemonicParsing="false" prefWidth="60.0" text="Reset" textFill="#cd1616" />
                </children>
             </HBox>
          </children>
@@ -141,19 +141,19 @@
             <HBox alignment="CENTER" spacing="10.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car 1 Velocity" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0 m/s" />
+                  <Text fx:id="statCar1Vel" strokeType="OUTSIDE" strokeWidth="0.0" text="0 m/s" />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="10.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car 2 Velocity" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0 m/s" />
+                  <Text fx:id="statCar2Vel" strokeType="OUTSIDE" strokeWidth="0.0" text="0 m/s" />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="10.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total System Energy" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0 J" />
+                  <Text fx:id="statEnergy" strokeType="OUTSIDE" strokeWidth="0.0" text="0 J" />
                </children>
             </HBox>
          </children>
