@@ -29,7 +29,6 @@ public class MainAppController {
 
     boolean isPlaying = false;
 
-
     PhysicsEngine physicsEngine = PhysicsEngine.getInstance();
 
     @FXML
@@ -37,7 +36,7 @@ public class MainAppController {
         System.out.println("MainAppController.initialize()...");
 
         car1 = new PhysicsEntity();
-        car1.setArcHeight(5.0);
+        /*car1.setArcHeight(5.0);
         car1.setArcWidth(5.0);
         car1.setFill(javafx.scene.paint.Color.valueOf("#30ab2c"));
         car1.setHeight(59.0);
@@ -48,7 +47,7 @@ public class MainAppController {
         car1.setWidth(177.0);
         car1.setInitialPosX(100);
         car1.setSpeedX(20);
-        car1.setMass(1000);
+        car1.setMass(1000);*/
 
         car2 = new PhysicsEntity();
         car2.setArcHeight(5.0);
@@ -64,13 +63,15 @@ public class MainAppController {
         car2.setSpeedX(-40);
         car2.setMass(800);
 
-        SpinnerValueFactory<Double> carVelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,20,1);
-        car1Velocity.setValueFactory(carVelocitySlider);
-        car2Velocity.setValueFactory(carVelocitySlider);
+        SpinnerValueFactory<Double> car1VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,20,1);
+        car1Velocity.setValueFactory(car1VelocitySlider);
+        SpinnerValueFactory<Double> car2VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,20,1);
+        car2Velocity.setValueFactory(car2VelocitySlider);
 
-        SpinnerValueFactory<Double> massSlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,10,1);
-        car1Mass.setValueFactory(massSlider);
-        car2Mass.setValueFactory(massSlider);
+        SpinnerValueFactory<Double> mass1Slider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,10,1);
+        car1Mass.setValueFactory(mass1Slider);
+        SpinnerValueFactory<Double> mass2Slider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,10,1);
+        car2Mass.setValueFactory(mass2Slider);
 
         collisionContainer.getChildren().addAll(car1, car2);
         // TODO: remove below test code once controls are implemented
@@ -203,20 +204,15 @@ public class MainAppController {
     }
 
     private void onPlaybackSliderChange() {
-        int sliderValue = (int) playbackSlider.getValue();
+        double sliderValue = playbackSlider.getValue();
         physicsEngine.setPlaybackSpeed(sliderValue);
         //System.out.println(sliderValue);
     }
 
     private void onPhysicSliderChange() {
-        int sliderValue = (int) physicSlider.getValue();
+        double sliderValue = physicSlider.getValue();
         physicsEngine.setRestitutionCoefficient(sliderValue);
-    }
-
-    private void onTerrainChange() {
-        terrainType.setOnAction(e -> {
-            throw new UnsupportedOperationException("TODO");
-        });
+        //System.out.println(sliderValue);
     }
 
     private void setCar1Velocity() {
