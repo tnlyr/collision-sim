@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class PhysicsEntity extends Rectangle implements Serializable {
     private transient TranslateTransition translateTransition;
-    private double initialPosX, speedX, mass;
+    private double initialPosX, velocityX, mass;
 
     public PhysicsEntity() {
         super();
@@ -29,12 +29,12 @@ public class PhysicsEntity extends Rectangle implements Serializable {
         this.initialPosX = initialPosX;
     }
 
-    public double getSpeedX() {
-        return speedX;
+    public double getVelocityX() {
+        return velocityX;
     }
 
-    public void setSpeedX(double speedX) {
-        this.speedX = speedX;
+    public void setVelocityX(double velocityX) {
+        this.velocityX = velocityX;
     }
 
     public double getMass() {
@@ -46,7 +46,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     public double getRelativePosition() {
-        int factor = (int) (speedX/Math.abs(speedX));
+        int factor = (int) (velocityX /Math.abs(velocityX));
         return getLayoutX() + getTranslateX() + (factor*(getWidth() / 2));
     }
 

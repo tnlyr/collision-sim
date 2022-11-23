@@ -32,9 +32,9 @@ public class PhysicsEngine implements Serializable {
     // TODO: create collision object (ugly return type currently)
     private double[] computeCollision() {
         double posXDelta = entities.get(0).getRelativePosition() - entities.get(1).getRelativePosition();
-        double speedXDelta = entities.get(1).getSpeedX() - entities.get(0).getSpeedX();
-        double timeOfCollision = posXDelta / speedXDelta;
-        double posOfCollision = timeOfCollision * entities.get(0).getSpeedX() + entities.get(0).getRelativePosition();
+        double velocityXDelta = entities.get(1).getVelocityX() - entities.get(0).getVelocityX();
+        double timeOfCollision = posXDelta / velocityXDelta;
+        double posOfCollision = timeOfCollision * entities.get(0).getVelocityX() + entities.get(0).getRelativePosition();
         System.out.printf("Collision with delta %f at %f in %f seconds \n", posXDelta, posOfCollision, timeOfCollision);
         return new double[]{posOfCollision, timeOfCollision};
     }
@@ -49,10 +49,14 @@ public class PhysicsEngine implements Serializable {
             System.out.printf("Transition By %f X\n", (posOfCollision-entity.getRelativePosition()));
             entity.getTranslateTransition().setByX(posOfCollision-entity.getRelativePosition());
         }
+        entities.get(0).getTranslateTransition().onFinishedProperty().set(event -> {
+
+        });
         // TODO: implement collision restitution
     }
 
     public void play() {
+        init();
         for (PhysicsEntity entity : entities) {
             entity.play();
         }

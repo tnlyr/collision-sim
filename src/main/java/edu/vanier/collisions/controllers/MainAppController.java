@@ -46,7 +46,7 @@ public class MainAppController {
         car1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         car1.setWidth(177.0);
         car1.setInitialPosX(100);
-        car1.setSpeedX(20);
+        car1.setVelocityX(20);
         car1.setMass(1000);
 
         car2 = new PhysicsEntity();
@@ -60,7 +60,7 @@ public class MainAppController {
         car2.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         car2.setWidth(177.0);
         car2.setInitialPosX(200);
-        car2.setSpeedX(-40);
+        car2.setVelocityX(-40);
         car2.setMass(800);
 
         SpinnerValueFactory<Double> car1VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,20,1);
@@ -110,7 +110,7 @@ public class MainAppController {
         });
 
         car1Velocity.valueProperty().addListener((obs, oldValue, newValue) -> {
-            car1.setSpeedX(newValue);
+            car1.setVelocityX(newValue);
         });
 
         car1Mass.valueProperty().addListener((obs, oldValue, newValue) -> {
@@ -118,7 +118,7 @@ public class MainAppController {
         });
 
         car2Velocity.valueProperty().addListener((obs, oldValue, newValue) -> {
-            car2.setSpeedX(newValue);
+            car2.setVelocityX(-newValue);
         });
 
         car2Mass.valueProperty().addListener((obs, oldValue, newValue) -> {
@@ -147,11 +147,6 @@ public class MainAppController {
             terrainType.getItems().add(item);
         });
     }
-
-    // TODO: implement action handlers
-    // FIXME : physicsEngine.setPlaybackSpeed()
-    // FIXME : physicsEngine.setTerrain()
-    // FIXME : physicsEngine.setRestitutionCoefficient()
 
     private void onPlay() {
         physicsEngine.play();
@@ -217,7 +212,7 @@ public class MainAppController {
 
     private void setCar1Velocity() {
         double velocity = car1Velocity.getValue();
-        car1.setSpeedX(velocity);
+        car1.setVelocityX(velocity);
     }
 
     private void setCar1Mass() {
@@ -227,7 +222,7 @@ public class MainAppController {
 
     private void setCar2Velocity() {
         double velocity = car2Velocity.getValue();
-        car2.setSpeedX(velocity);
+        car2.setVelocityX(velocity);
     }
 
     private void setCar2Mass() {
