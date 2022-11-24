@@ -47,7 +47,8 @@ public class PhysicsEngine implements Serializable {
                 System.out.println("Collision!");
                 double timeElapsed = Math.max(entities.get(0).getTranslateTransition().getCurrentTime().toSeconds(), entities.get(1).getTranslateTransition().getCurrentTime().toSeconds());
                 System.out.println("Time Elapsed: " + timeElapsed);
-                if (timeElapsed == 0) {
+                // TODO: find better solution
+                if (timeElapsed < 0.5) {
                     return;
                 }
                 for (PhysicsEntity entity : entities) {
