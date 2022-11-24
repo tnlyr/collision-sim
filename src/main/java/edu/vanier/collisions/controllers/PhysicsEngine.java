@@ -31,7 +31,7 @@ public class PhysicsEngine implements Serializable {
     }
 
     // TODO: disambiguate init and collision setup
-    // TODO: bounce
+    // TODO: cleanup code
     public void init() {
         for (PhysicsEntity entity : entities) {
             double nullTime = entity.getTimeAtNullVelocity(entity.getDirection() * getFrictionDeceleration());
