@@ -40,28 +40,30 @@ public class MainAppController {
         car1.setArcWidth(5.0);
         car1.setFill(javafx.scene.paint.Color.valueOf("#30ab2c"));
         car1.setHeight(59.0);
-        car1.setLayoutX(148.0);
         car1.setLayoutY(284.0);
         car1.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
         car1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         car1.setWidth(177.0);
+        car1.setCenterOffset(177/2);
         car1.setInitialPosX(100);
         car1.setVelocityX(20);
         car1.setMass(1000);
+        car1.reset();
 
         car2 = new PhysicsEntity();
         car2.setArcHeight(5.0);
         car2.setArcWidth(5.0);
         car2.setFill(javafx.scene.paint.Color.valueOf("#d71e14"));
         car2.setHeight(59.0);
-        car2.setLayoutX(882.0);
         car2.setLayoutY(284.0);
         car2.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
         car2.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         car2.setWidth(177.0);
-        car2.setInitialPosX(200);
-        car2.setVelocityX(-40);
+        car2.setCenterOffset(-177/2);
+        car2.setInitialPosX(800);
+        car2.setVelocityX(-120);
         car2.setMass(800);
+        car2.reset();
 
         SpinnerValueFactory<Double> car1VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,20,1);
         car1Velocity.setValueFactory(car1VelocitySlider);
@@ -77,7 +79,7 @@ public class MainAppController {
         // TODO: remove below test code once controls are implemented
         physicsEngine.setEntities(car1, car2);
         physicsEngine.setTerrain(Terrain.GRASS);
-        physicsEngine.setRestitutionCoefficient(0.8);
+        physicsEngine.setRestitutionCoefficient(1);
         physicsEngine.init();
 
         playBtn.setOnAction(e -> {
