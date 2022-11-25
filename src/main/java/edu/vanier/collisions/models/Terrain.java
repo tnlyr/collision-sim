@@ -6,8 +6,7 @@ public enum Terrain {
     DESERT(0.6, ResourceManager.DESERT),
     GRASS(0.35, ResourceManager.GRASS),
     ICE(0.09,  ResourceManager.ICE),
-    // TODO: City texture
-    CITY(1.35, ResourceManager.SNOW),
+    CITY(1.35, ResourceManager.CITY),
     SNOW(0.15, ResourceManager.SNOW),
     WATER(0.1, ResourceManager.WATER),
     MOON(0.5, ResourceManager.MOON, 1.62);
