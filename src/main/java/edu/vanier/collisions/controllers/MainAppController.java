@@ -36,9 +36,9 @@ public class MainAppController {
     private void initialize() {
         System.out.println("MainAppController.initialize()...");
 
-        SpinnerValueFactory<Double> car1VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(50,500,250);
+        SpinnerValueFactory<Double> car1VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1000,250);
         car1Velocity.setValueFactory(car1VelocitySlider);
-        SpinnerValueFactory<Double> car2VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(50,500,250);
+        SpinnerValueFactory<Double> car2VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1000,250);
         car2Velocity.setValueFactory(car2VelocitySlider);
 
         SpinnerValueFactory<Double> mass1Slider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,100,25);
