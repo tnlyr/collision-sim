@@ -1,6 +1,6 @@
 package edu.vanier.collisions.controllers;
 
-public class ResourcesManager {
+public class ResourceManager {
     private static final String RESOURCES_PATH = "/";
     private static final String IMAGES_FOLDER = "images/";
 
