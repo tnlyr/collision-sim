@@ -146,7 +146,7 @@ public class MainAppController {
         car1.setWidth(177.0);
         car1.setCenterOffset(88.5);
         car1.setInitialPosX(100);
-        car1.setVelocityX(car2Velocity.getValue());
+        car1.setVelocityX(car1Velocity.getValue());
         car1.setMass(car1Mass.getValue());
         car1.reset();
 
