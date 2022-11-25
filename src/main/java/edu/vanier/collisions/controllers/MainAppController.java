@@ -15,7 +15,6 @@ public class MainAppController {
     Pane collisionContainer;
     @FXML
     HBox carsParameters, generalParameters;
-
     PhysicsEntity car1, car2;
     @FXML
     Button playBtn, resetBtn;
@@ -25,7 +24,6 @@ public class MainAppController {
     Slider playbackSlider, physicSlider;
     @FXML
     MenuButton terrainType;
-    MenuItem
     @FXML
     Menu fileMenuBarbtn, editMenuBarbtn, helpMenuBarbtn;
     @FXML
@@ -115,10 +113,19 @@ public class MainAppController {
             item.setOnAction(e -> {
                 physicsEngine.setTerrain(terrain);
                 terrainType.setText(terrain.toString());
+                setBackground(terrain.toString());
             });
             terrainType.getItems().add(item);
         });
+
+
+
         defaultParameters();
+    }
+
+    // FIXME : fix path
+    private void setBackground(String terrain) {
+        collisionContainer.setStyle("-fx-background-image: url(RESOURCES_PATH + IMAGES_FOLDER + terrain + `.jpg`);");
     }
 
     private void defaultParameters() {
@@ -226,7 +233,8 @@ public class MainAppController {
         //System.out.println(sliderValue);
     }
 
-    private void setCar1Velocity() {
+    // USELESS CODE
+    /*private void setCar1Velocity() {
         double velocity = car1Velocity.getValue();
         car1.setVelocityX(velocity);
     }
@@ -244,5 +252,5 @@ public class MainAppController {
     private void setCar2Mass() {
         double mass = car2Mass.getValue();
         car2.setMass(mass);
-    }
+    }*/
 }
