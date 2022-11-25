@@ -21,8 +21,8 @@
          <menus>
             <Menu fx:id="fileMenuBarbtn" mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem fx:id="importBtn" mnemonicParsing="false" text="Import Simulation..." />
-                  <MenuItem fx:id="exportBtn" mnemonicParsing="false" text="Export Simulation..." />
+                  <MenuItem fx:id="importBtn" mnemonicParsing="false" text="Import Simulation... (Ctrl+O)" />
+                  <MenuItem fx:id="exportBtn" mnemonicParsing="false" text="Export Simulation... (Ctrl+S)" />
                </items>
             </Menu>
             <Menu fx:id="editMenuBarbtn" mnemonicParsing="false" text="Edit">
@@ -110,7 +110,7 @@
             <HBox alignment="CENTER" spacing="10.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Car Elasticity" textAlignment="CENTER" wrappingWidth="97.86865234375" />
-                  <Slider fx:id="physicSlider" blockIncrement="0.1" majorTickUnit="0.25" max="1.0" minorTickCount="1" showTickLabels="true" snapToTicks="true" value="1.0" />
+                  <Slider fx:id="elasticitySlider" blockIncrement="0.1" majorTickUnit="0.25" max="1.0" minorTickCount="1" showTickLabels="true" snapToTicks="true" value="1.0" />
                </children>
             </HBox>
             <MenuButton fx:id="terrainType" alignment="CENTER" mnemonicParsing="false" text="Terrain Type" />

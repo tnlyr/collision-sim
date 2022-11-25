@@ -15,13 +15,12 @@ public class MainAppController {
     Pane collisionContainer;
     @FXML
     HBox carsParameters, generalParameters;
-    PhysicsEntity car1, car2;
     @FXML
     Button playBtn, resetBtn;
     @FXML
     Spinner<Double> car1Velocity, car1Mass, car2Velocity, car2Mass;
     @FXML
-    Slider playbackSlider, physicSlider;
+    Slider playbackSlider, elasticitySlider;
     @FXML
     MenuButton terrainType;
     @FXML
@@ -36,9 +35,6 @@ public class MainAppController {
     @FXML
     private void initialize() {
         System.out.println("MainAppController.initialize()...");
-
-        car1 = new PhysicsEntity();
-        car2 = new PhysicsEntity();
 
         SpinnerValueFactory<Double> car1VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(50,500,250);
         car1Velocity.setValueFactory(car1VelocitySlider);
@@ -67,6 +63,7 @@ public class MainAppController {
             try {
                 onImport();
             } catch (IOException | ClassNotFoundException ex) {
+                disableParameters(false);
                 ex.printStackTrace();
             }
         });
@@ -75,34 +72,36 @@ public class MainAppController {
             try {
                 onExport();
             } catch (IOException ex) {
+                disableParameters(false);
                 ex.printStackTrace();
             }
         });
 
         car1Velocity.valueProperty().addListener((obs, oldValue, newValue) -> {
-            car1.setVelocityX(newValue);
+            physicsEngine.getEntity1().setVelocityX(newValue);
         });
 
         car1Mass.valueProperty().addListener((obs, oldValue, newValue) -> {
-            car1.setMass(newValue);
+            physicsEngine.getEntity1().setMass(newValue);
         });
 
         car2Velocity.valueProperty().addListener((obs, oldValue, newValue) -> {
-            car2.setVelocityX(-newValue);
+            physicsEngine.getEntity2().setVelocityX(-newValue);
         });
 
         car2Mass.valueProperty().addListener((obs, oldValue, newValue) -> {
-            car2.setMass(newValue);
+            physicsEngine.getEntity2().setMass(newValue);
         });
 
         playbackSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             onPlaybackSliderChange();
         });
 
-        physicSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            onPhysicSliderChange();
+        elasticitySlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            onElasticitySliderChange();
         });
 
+        // TODO: ?
         collisionContainer.widthProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("New width: "+newValue);
             //- resize or reposition our cars.
@@ -113,59 +112,76 @@ public class MainAppController {
             item.setOnAction(e -> {
                 physicsEngine.setTerrain(terrain);
                 terrainType.setText(terrain.toString());
-                setBackground(terrain.toString());
+                setBackground(terrain.texturePath());
             });
             terrainType.getItems().add(item);
         });
 
+        // TODO: resolve below redundant code
+        physicsEngine.setTerrain(Terrain.GRASS);
+        terrainType.setText(Terrain.GRASS.toString());
+        setBackground(Terrain.GRASS.texturePath());
 
+        initEnvironment();
 
-        defaultParameters();
+        // TODO: keystroke for play/pause, reset, import, export
     }
 
-    // FIXME : fix path
-    private void setBackground(String terrain) {
-        collisionContainer.setStyle("-fx-background-image: url(RESOURCES_PATH + IMAGES_FOLDER + terrain + `.jpg`);");
-    }
+    private void initEnvironment() {
+        PhysicsEntity car1 = new PhysicsEntity();
+        PhysicsEntity car2 = new PhysicsEntity();
 
-    private void defaultParameters() {
-        car1 = new PhysicsEntity();
-        car2 = new PhysicsEntity();
+        // TODO: use image instead of rectangle?
 
-        car1.setFill(javafx.scene.paint.Color.valueOf("#30ab2c"));
+        car1.setFill(javafx.scene.paint.Color.valueOf("#0075ff"));
         car1.setHeight(59.0);
-        car1.setLayoutY(284.0);
+        car1.setLayoutY(400.0);
         car1.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
         car1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
+
+        car2.setFill(javafx.scene.paint.Color.valueOf("#d71e14"));
+        car2.setHeight(59.0);
+        car2.setLayoutY(400.0);
+        car2.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
+        car2.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
+
         car1.setWidth(177.0);
-        car1.setCenterOffset(177/2);
+        car1.setCenterOffset(88.5);
         car1.setInitialPosX(100);
         car1.setVelocityX(car2Velocity.getValue());
         car1.setMass(car1Mass.getValue());
         car1.reset();
 
-        car2.setFill(javafx.scene.paint.Color.valueOf("#d71e14"));
-        car2.setHeight(59.0);
-        car2.setLayoutY(284.0);
-        car2.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
-        car2.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         car2.setWidth(177.0);
-        car2.setCenterOffset(-177/2);
-        car2.setInitialPosX(800);
+        car2.setCenterOffset(-88.5);
+        car2.setInitialPosX(1000);
         car2.setVelocityX(-car2Velocity.getValue());
         car2.setMass(car2Mass.getValue());
         car2.reset();
 
         collisionContainer.getChildren().setAll(car1, car2);
         physicsEngine.setEntities(car1, car2);
-        physicsEngine.setTerrain(Terrain.GRASS);
         physicsEngine.setRestitutionCoefficient(1);
         physicsEngine.init();
     }
 
+    private void setParametersFromEngine() {
+        car1Velocity.getValueFactory().setValue(Math.abs(physicsEngine.getEntity1().getVelocityX()));
+        car2Velocity.getValueFactory().setValue(Math.abs(physicsEngine.getEntity2().getVelocityX()));
+        car1Mass.getValueFactory().setValue(physicsEngine.getEntity1().getMass());
+        car2Mass.getValueFactory().setValue(physicsEngine.getEntity2().getMass());
+        playbackSlider.setValue(physicsEngine.getPlaybackSpeed());
+        elasticitySlider.setValue(physicsEngine.getRestitutionCoefficient());
+        terrainType.setText(physicsEngine.getTerrain().toString());
+    }
+
+    private void setBackground(String path) {
+        collisionContainer.setStyle("-fx-background-image: url('"+path+"'); -fx-background-size: cover; -fx-background-repeat: no-repeat; -fx-background-position: center bottom;");
+    }
+
     private void onPlay() {
         physicsEngine.play();
-        toggleControls(true);
+        disableParameters(true);
         playBtn.setText("Pause");
         isPlaying = true;
     }
@@ -177,42 +193,51 @@ public class MainAppController {
     }
 
     private void onReset() {
-        defaultParameters();
+        initEnvironment();
         physicsEngine.reset();
-        toggleControls(false);
+        disableParameters(false);
         playBtn.setText("Play");
         isPlaying = false;
     }
 
-    private void toggleControls(boolean choice) {
+    private void disableParameters(boolean choice) {
         carsParameters.setDisable(choice);
         generalParameters.setDisable(choice);
     }
 
     private void onImport() throws IOException, ClassNotFoundException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        // TODO: onCancel
-        String filePath = fileChooser.showOpenDialog(null).getAbsolutePath();
-        FileInputStream fileInt = new FileInputStream(filePath);
-        ObjectInputStream objInt = new ObjectInputStream(fileInt);
-        PhysicsEngine newPhysicsEngine = (PhysicsEngine) objInt.readObject();
-        physicsEngine.setInstance(newPhysicsEngine);
-        objInt.close();
-        fileInt.close();
+        fileChooser.setTitle("Open Simulation File");
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            disableParameters(true);
+            FileInputStream fileInt = new FileInputStream(file);
+            ObjectInputStream objInt = new ObjectInputStream(fileInt);
+            PhysicsEngine newPhysicsEngine = (PhysicsEngine) objInt.readObject();
+            PhysicsEngine.setInstance(newPhysicsEngine);
+            physicsEngine = PhysicsEngine.getInstance();
+            objInt.close();
+            fileInt.close();
+        }
+        physicsEngine.getEntity1().initializeTranslateTransition();
+        physicsEngine.getEntity2().initializeTranslateTransition();
+        setParametersFromEngine();
+        initEnvironment();
+        disableParameters(false);
     }
 
     private void onExport() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Simulation");
         fileChooser.setInitialFileName("simulation.sim");
-        // TODO: onCancel
-        String filePath = fileChooser.showSaveDialog(null).getAbsolutePath();
-        FileOutputStream fileOut = new FileOutputStream(filePath);
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(physicsEngine);
-        out.close();
-        fileOut.close();
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            FileOutputStream fileOut = new FileOutputStream(file);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(physicsEngine);
+            out.close();
+            fileOut.close();
+        }
     }
 
     private void onHelp() { //TODO: implement help
@@ -224,33 +249,10 @@ public class MainAppController {
     private void onPlaybackSliderChange() {
         double sliderValue = playbackSlider.getValue();
         physicsEngine.setPlaybackSpeed(sliderValue);
-        //System.out.println(sliderValue);
     }
 
-    private void onPhysicSliderChange() {
-        double sliderValue = physicSlider.getValue();
+    private void onElasticitySliderChange() {
+        double sliderValue = elasticitySlider.getValue();
         physicsEngine.setRestitutionCoefficient(sliderValue);
-        //System.out.println(sliderValue);
     }
-
-    // USELESS CODE
-    /*private void setCar1Velocity() {
-        double velocity = car1Velocity.getValue();
-        car1.setVelocityX(velocity);
-    }
-
-    private void setCar1Mass() {
-        double mass = car1Mass.getValue();
-        car1.setMass(mass);
-    }
-
-    private void setCar2Velocity() {
-        double velocity = car2Velocity.getValue();
-        car2.setVelocityX(velocity);
-    }
-
-    private void setCar2Mass() {
-        double mass = car2Mass.getValue();
-        car2.setMass(mass);
-    }*/
 }
