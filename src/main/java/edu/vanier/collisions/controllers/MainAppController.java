@@ -131,8 +131,6 @@ public class MainAppController {
         PhysicsEntity car1 = new PhysicsEntity();
         PhysicsEntity car2 = new PhysicsEntity();
 
-        // TODO: use image instead of rectangle?
-
         car1.setFill(javafx.scene.paint.Color.valueOf("#0075ff"));
         car1.setHeight(59.0);
         car1.setLayoutY(400.0);
@@ -161,7 +159,7 @@ public class MainAppController {
 
         collisionContainer.getChildren().setAll(car1, car2);
         physicsEngine.setEntities(car1, car2);
-        physicsEngine.setRestitutionCoefficient(1);
+        physicsEngine.setRestitutionCoefficient(elasticitySlider.getValue());
         physicsEngine.init();
     }
 
