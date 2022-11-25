@@ -4,6 +4,7 @@ import edu.vanier.collisions.models.PhysicsEntity;
 import edu.vanier.collisions.models.Terrain;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -102,10 +103,10 @@ public class MainAppController {
         });
 
         // TODO: ?
-        collisionContainer.widthProperty().addListener((observable, oldValue, newValue) -> {
+        /*collisionContainer.widthProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("New width: "+newValue);
             //- resize or reposition our cars.
-        });
+        });*/
 
         Arrays.stream(Terrain.values()).forEach(terrain -> {
             MenuItem item = new MenuItem(terrain.toString());
@@ -125,6 +126,9 @@ public class MainAppController {
         initEnvironment();
 
         // TODO: keystroke for play/pause, reset, import, export
+        /*if(event.getCode() == KeyCode.P){
+
+        }*/
     }
 
     private void initEnvironment() {
