@@ -7,14 +7,13 @@ import java.io.Serializable;
 
 public class PhysicsEntity extends Rectangle implements Serializable {
     private transient TranslateTransition translateTransition;
-    private double initialPosX, speedX, mass;
+    private double initialPosX, velocityX, centerOffset, mass;
 
     public PhysicsEntity() {
         super();
         translateTransition = new TranslateTransition();
         translateTransition.setNode(this);
-        translateTransition.setInterpolator(Interpolator.LINEAR);
-        setLayoutX(initialPosX);
+        translateTransition.setInterpolator(Interpolator.EASE_OUT);
     }
 
     public TranslateTransition getTranslateTransition() {
@@ -29,12 +28,20 @@ public class PhysicsEntity extends Rectangle implements Serializable {
         this.initialPosX = initialPosX;
     }
 
-    public double getSpeedX() {
-        return speedX;
+    public double getVelocityX() {
+        return velocityX;
     }
 
-    public void setSpeedX(double speedX) {
-        this.speedX = speedX;
+    public void setVelocityX(double velocityX) {
+        this.velocityX = velocityX;
+    }
+
+    public double getCenterOffset() {
+        return centerOffset;
+    }
+
+    public void setCenterOffset(double centerOffset) {
+        this.centerOffset = centerOffset;
     }
 
     public double getMass() {
@@ -46,8 +53,28 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     public double getRelativePosition() {
-        int factor = (int) (speedX/Math.abs(speedX));
-        return getLayoutX() + getTranslateX() + (factor*(getWidth() / 2));
+        return getLayoutX() + getTranslateX() + centerOffset;
+    }
+
+    public double getPositionAtTime(double acceleration, double time) {
+        time = Math.min(time, getTimeAtNullVelocity(acceleration));
+        return initialPosX + centerOffset + (velocityX * time) + (0.5 * acceleration * time * time);
+    }
+
+    public double getVelocityAtTime(double acceleration, double time) {
+        if (time > getTimeAtNullVelocity(acceleration)) {
+            return 0;
+        }
+        return velocityX + 0.25 * acceleration * time;
+    }
+
+    public double getTimeAtNullVelocity(double acceleration) {
+        double time = (0 - velocityX) / acceleration;
+        return time < 0 ? Double.POSITIVE_INFINITY : time;
+    }
+
+    public int getDirection() {
+        return (int) (velocityX /Math.abs(velocityX));
     }
 
     public void play() {
@@ -61,5 +88,6 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     public void reset() {
         translateTransition.stop();
         setTranslateX(0);
+        setLayoutX(initialPosX);
     }
 }

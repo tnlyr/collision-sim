@@ -4,6 +4,7 @@ import edu.vanier.collisions.models.PhysicsEntity;
 import edu.vanier.collisions.models.Terrain;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import java.io.*;
@@ -12,6 +13,8 @@ import java.util.Arrays;
 public class MainAppController {
     @FXML
     Pane collisionContainer;
+    @FXML
+    HBox carsParameters, generalParameters;
 
     PhysicsEntity car1, car2;
     @FXML
@@ -37,49 +40,17 @@ public class MainAppController {
         System.out.println("MainAppController.initialize()...");
 
         car1 = new PhysicsEntity();
-        car1.setArcHeight(5.0);
-        car1.setArcWidth(5.0);
-        car1.setFill(javafx.scene.paint.Color.valueOf("#30ab2c"));
-        car1.setHeight(59.0);
-        car1.setLayoutX(148.0);
-        car1.setLayoutY(284.0);
-        car1.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
-        car1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
-        car1.setWidth(177.0);
-        car1.setInitialPosX(100);
-        car1.setSpeedX(20);
-        car1.setMass(1000);
-
         car2 = new PhysicsEntity();
-        car2.setArcHeight(5.0);
-        car2.setArcWidth(5.0);
-        car2.setFill(javafx.scene.paint.Color.valueOf("#d71e14"));
-        car2.setHeight(59.0);
-        car2.setLayoutX(882.0);
-        car2.setLayoutY(284.0);
-        car2.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
-        car2.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
-        car2.setWidth(177.0);
-        car2.setInitialPosX(200);
-        car2.setSpeedX(-40);
-        car2.setMass(800);
 
-        SpinnerValueFactory<Double> car1VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,20,1);
+        SpinnerValueFactory<Double> car1VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(50,500,250);
         car1Velocity.setValueFactory(car1VelocitySlider);
-        SpinnerValueFactory<Double> car2VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,20,1);
+        SpinnerValueFactory<Double> car2VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(50,500,250);
         car2Velocity.setValueFactory(car2VelocitySlider);
 
-        SpinnerValueFactory<Double> mass1Slider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,10,1);
+        SpinnerValueFactory<Double> mass1Slider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,100,25);
         car1Mass.setValueFactory(mass1Slider);
-        SpinnerValueFactory<Double> mass2Slider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,10,1);
+        SpinnerValueFactory<Double> mass2Slider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,100,25);
         car2Mass.setValueFactory(mass2Slider);
-
-        collisionContainer.getChildren().addAll(car1, car2);
-        // TODO: remove below test code once controls are implemented
-        physicsEngine.setEntities(car1, car2);
-        physicsEngine.setTerrain(Terrain.GRASS);
-        physicsEngine.setRestitutionCoefficient(0.8);
-        physicsEngine.init();
 
         playBtn.setOnAction(e -> {
             if (!isPlaying){
@@ -111,7 +82,7 @@ public class MainAppController {
         });
 
         car1Velocity.valueProperty().addListener((obs, oldValue, newValue) -> {
-            car1.setSpeedX(newValue);
+            car1.setVelocityX(newValue);
         });
 
         car1Mass.valueProperty().addListener((obs, oldValue, newValue) -> {
@@ -119,7 +90,7 @@ public class MainAppController {
         });
 
         car2Velocity.valueProperty().addListener((obs, oldValue, newValue) -> {
-            car2.setSpeedX(newValue);
+            car2.setVelocityX(-newValue);
         });
 
         car2Mass.valueProperty().addListener((obs, oldValue, newValue) -> {
@@ -147,15 +118,47 @@ public class MainAppController {
             });
             terrainType.getItems().add(item);
         });
+        defaultParameters();
     }
 
-    // TODO: implement action handlers
-    // FIXME : physicsEngine.setPlaybackSpeed()
-    // FIXME : physicsEngine.setTerrain()
-    // FIXME : physicsEngine.setRestitutionCoefficient()
+    private void defaultParameters() {
+        car1 = new PhysicsEntity();
+        car2 = new PhysicsEntity();
+
+        car1.setFill(javafx.scene.paint.Color.valueOf("#30ab2c"));
+        car1.setHeight(59.0);
+        car1.setLayoutY(284.0);
+        car1.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
+        car1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
+        car1.setWidth(177.0);
+        car1.setCenterOffset(177/2);
+        car1.setInitialPosX(100);
+        car1.setVelocityX(car2Velocity.getValue());
+        car1.setMass(car1Mass.getValue());
+        car1.reset();
+
+        car2.setFill(javafx.scene.paint.Color.valueOf("#d71e14"));
+        car2.setHeight(59.0);
+        car2.setLayoutY(284.0);
+        car2.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
+        car2.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
+        car2.setWidth(177.0);
+        car2.setCenterOffset(-177/2);
+        car2.setInitialPosX(800);
+        car2.setVelocityX(-car2Velocity.getValue());
+        car2.setMass(car2Mass.getValue());
+        car2.reset();
+
+        collisionContainer.getChildren().setAll(car1, car2);
+        physicsEngine.setEntities(car1, car2);
+        physicsEngine.setTerrain(Terrain.GRASS);
+        physicsEngine.setRestitutionCoefficient(1);
+        physicsEngine.init();
+    }
 
     private void onPlay() {
         physicsEngine.play();
+        toggleControls(true);
         playBtn.setText("Pause");
         isPlaying = true;
     }
@@ -167,9 +170,16 @@ public class MainAppController {
     }
 
     private void onReset() {
+        defaultParameters();
         physicsEngine.reset();
+        toggleControls(false);
         playBtn.setText("Play");
         isPlaying = false;
+    }
+
+    private void toggleControls(boolean choice) {
+        carsParameters.setDisable(choice);
+        generalParameters.setDisable(choice);
     }
 
     private void onImport() throws IOException, ClassNotFoundException {
@@ -218,7 +228,7 @@ public class MainAppController {
 
     private void setCar1Velocity() {
         double velocity = car1Velocity.getValue();
-        car1.setSpeedX(velocity);
+        car1.setVelocityX(velocity);
     }
 
     private void setCar1Mass() {
@@ -228,7 +238,7 @@ public class MainAppController {
 
     private void setCar2Velocity() {
         double velocity = car2Velocity.getValue();
-        car2.setSpeedX(velocity);
+        car2.setVelocityX(velocity);
     }
 
     private void setCar2Mass() {
