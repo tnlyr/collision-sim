@@ -11,6 +11,10 @@ public class PhysicsEntity extends Rectangle implements Serializable {
 
     public PhysicsEntity() {
         super();
+        initializeTranslateTransition();
+    }
+
+    public void initializeTranslateTransition() {
         translateTransition = new TranslateTransition();
         translateTransition.setNode(this);
         translateTransition.setInterpolator(Interpolator.EASE_OUT);
@@ -57,24 +61,24 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     public double getPositionAtTime(double acceleration, double time) {
-        time = Math.min(time, getTimeAtNullVelocity(acceleration));
+        time = Math.min(time, getTimeAtStandstill(acceleration));
         return initialPosX + centerOffset + (velocityX * time) + (0.5 * acceleration * time * time);
     }
 
     public double getVelocityAtTime(double acceleration, double time) {
-        if (time > getTimeAtNullVelocity(acceleration)) {
+        if (time > getTimeAtStandstill(acceleration)) {
             return 0;
         }
         return velocityX + 0.25 * acceleration * time;
     }
 
-    public double getTimeAtNullVelocity(double acceleration) {
+    public double getTimeAtStandstill(double acceleration) {
         double time = (0 - velocityX) / acceleration;
         return time < 0 ? Double.POSITIVE_INFINITY : time;
     }
 
-    public int getDirection() {
-        return (int) (velocityX /Math.abs(velocityX));
+    public short getDirection() {
+        return (short) (velocityX /Math.abs(velocityX));
     }
 
     public void play() {
