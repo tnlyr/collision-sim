@@ -133,13 +133,13 @@ public class MainAppController {
 
         car1.setFill(javafx.scene.paint.Color.valueOf("#0075ff"));
         car1.setHeight(59.0);
-        car1.setLayoutY(400.0);
+        car1.setLayoutY(340.0);
         car1.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
         car1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
 
         car2.setFill(javafx.scene.paint.Color.valueOf("#d71e14"));
         car2.setHeight(59.0);
-        car2.setLayoutY(400.0);
+        car2.setLayoutY(340.0);
         car2.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
         car2.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
 
@@ -174,7 +174,7 @@ public class MainAppController {
     }
 
     private void setBackground(String path) {
-        collisionContainer.setStyle("-fx-background-image: url('"+path+"'); -fx-background-size: cover; -fx-background-repeat: no-repeat; -fx-background-position: center bottom;");
+        collisionContainer.setStyle("-fx-background-image: url('"+path+"'); -fx-background-size: stretch; -fx-background-repeat: no-repeat; -fx-background-position: bottom bottom;");
     }
 
     private void onPlay() {
