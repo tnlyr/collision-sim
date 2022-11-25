@@ -22,6 +22,7 @@ public class MainAppController {
     Slider playbackSlider, physicSlider;
     @FXML
     MenuButton terrainType;
+    MenuItem
     @FXML
     Menu fileMenuBarbtn, editMenuBarbtn, helpMenuBarbtn;
     @FXML
