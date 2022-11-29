@@ -3,6 +3,7 @@ package edu.vanier.collisions.controllers;
 import edu.vanier.collisions.models.PhysicsEntity;
 import edu.vanier.collisions.models.Terrain;
 import javafx.fxml.FXML;
+import javafx.scene.media.AudioClip;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
@@ -102,6 +103,8 @@ public class MainAppController {
             onElasticitySliderChange();
         });
 
+        loopAmbientSound();
+
         // TODO: ?
         /*collisionContainer.widthProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("New width: "+newValue);
@@ -179,6 +182,12 @@ public class MainAppController {
 
     private void setBackground(String path) {
         collisionContainer.setStyle("-fx-background-image: url('"+path+"'); -fx-background-size: stretch; -fx-background-repeat: no-repeat; -fx-background-position: bottom bottom;");
+    }
+
+    private void loopAmbientSound() {
+        AudioClip audioClip = new AudioClip(getClass().getResource(ResourceManager.AMBIENT_SOUND).toString());
+        audioClip.setCycleCount(AudioClip.INDEFINITE);
+        audioClip.play();
     }
 
     private void onPlay() {
