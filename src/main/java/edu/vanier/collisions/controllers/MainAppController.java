@@ -183,7 +183,7 @@ public class MainAppController {
         audioClip.play();
     }
 
-    private void onPlay() {
+    public void onPlay() {
         physicsEngine.play();
         disableParameters(true);
         playBtn.setText("Pause");
