@@ -4,6 +4,7 @@ import edu.vanier.collisions.models.PhysicsEntity;
 import edu.vanier.collisions.models.Terrain;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.media.AudioClip;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -107,6 +108,8 @@ public class MainAppController {
             onElasticitySliderChange();
         });
 
+        loopAmbientSound();
+
         Arrays.stream(Terrain.values()).forEach(terrain -> {
             MenuItem item = new MenuItem(terrain.toString());
             item.setOnAction(e -> {
@@ -174,7 +177,13 @@ public class MainAppController {
         collisionContainer.setStyle("-fx-background-image: url('"+path+"'); -fx-background-size: stretch; -fx-background-repeat: no-repeat; -fx-background-position: bottom bottom;");
     }
 
-    public void onPlay() {
+    private void loopAmbientSound() {
+        AudioClip audioClip = new AudioClip(getClass().getResource(ResourceManager.AMBIENT_SOUND).toString());
+        audioClip.setCycleCount(AudioClip.INDEFINITE);
+        audioClip.play();
+    }
+
+    private void onPlay() {
         physicsEngine.play();
         disableParameters(true);
         playBtn.setText("Pause");

@@ -78,6 +78,9 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     public short getDirection() {
+        if (velocityX == 0) {
+            return 0;
+        }
         return (short) (velocityX /Math.abs(velocityX));
     }
 
