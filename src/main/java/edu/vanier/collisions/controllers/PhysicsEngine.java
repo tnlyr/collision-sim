@@ -20,6 +20,10 @@ public class PhysicsEngine implements Serializable {
     private PhysicsEngine() {
     }
 
+    /**
+     *
+     * @return
+     */
     public static PhysicsEngine getInstance() {
         if (instance == null) {
             instance = new PhysicsEngine();
@@ -27,9 +31,14 @@ public class PhysicsEngine implements Serializable {
         return instance;
     }
 
+    /**
+     *
+     * @param newInstance
+     */
     public static void setInstance(PhysicsEngine newInstance) {
         instance = newInstance;
     }
+
 
     public void init() {
         parallelTransition = new ParallelTransition(entity1.getTranslateTransition(), entity2.getTranslateTransition());
@@ -92,6 +101,10 @@ public class PhysicsEngine implements Serializable {
         return parallelTransition.getTotalDuration().toSeconds();
     }
 
+    /**
+     *
+     * @param entity
+     */
     private void setTrajectoryToStandstill(PhysicsEntity entity) {
         entity.setInitialPosX(entity.getRelativePosition());
         double timeOfStandstill = entity.getTimeAtStandstill(getFrictionDeceleration(entity.getDirection()));
@@ -100,18 +113,35 @@ public class PhysicsEngine implements Serializable {
         entity.getTranslateTransition().setByX(positionOfStandstill);
     }
 
+    /**
+     *
+     * @param entity
+     * @param timeElapsed
+     */
     private void adjustVelocity(PhysicsEntity entity, double timeElapsed) {
         double newVel = entity.getVelocityAtTime(getFrictionDeceleration(entity.getDirection()), timeElapsed);
         entity.setVelocityX(newVel);
     }
 
+    /**
+     *
+     * @param collidedEntity
+     * @param collidingEntity
+     * @return
+     */
     private double getVelocityXAfterCollision(PhysicsEntity collidedEntity, PhysicsEntity collidingEntity) {
         return (collidedEntity.getMass() * collidedEntity.getVelocityX() + collidingEntity.getMass() * collidingEntity.getVelocityX() + collidingEntity.getMass() * restitutionCoefficient * (collidingEntity.getVelocityX()-collidedEntity.getVelocityX())) / (collidedEntity.getMass() + collidingEntity.getMass());
     }
 
+    /**
+     *
+     * @param direction
+     * @return
+     */
     private double getFrictionDeceleration(short direction) {
         return -direction * terrain.deceleration();
     }
+
 
     public void play() {
         init();
@@ -147,26 +177,51 @@ public class PhysicsEngine implements Serializable {
         return restitutionCoefficient;
     }
 
+    /**
+     *
+     * @param restitutionCoefficient
+     */
     public void setRestitutionCoefficient(double restitutionCoefficient) {
         this.restitutionCoefficient = restitutionCoefficient;
     }
 
+    /**
+     *
+     * @return
+     */
     public PhysicsEntity getEntity1() {
         return entity1;
     }
 
+    /**
+     *
+     * @param entity1
+     */
     public void setEntity1(PhysicsEntity entity1) {
         this.entity1 = entity1;
     }
 
+    /**
+     *
+     * @return
+     */
     public PhysicsEntity getEntity2() {
         return entity2;
     }
 
+    /**
+     *
+     * @param entity2
+     */
     public void setEntity2(PhysicsEntity entity2) {
         this.entity2 = entity2;
     }
 
+    /**
+     *
+     * @param entity1
+     * @param entity2
+     */
     public void setEntities(PhysicsEntity entity1, PhysicsEntity entity2) {
         this.entity1 = entity1;
         this.entity2 = entity2;

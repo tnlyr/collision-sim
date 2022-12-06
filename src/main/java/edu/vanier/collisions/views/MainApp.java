@@ -21,6 +21,12 @@ import java.io.IOException;
 public class MainApp extends Application {
     MainAppController controller = new MainAppController();
 
+    /**
+     *
+     * @param stage
+     * @throws Exception
+     * Allows to display the FXML scene in the created stage.
+     */
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainApp_layout.fxml"));
@@ -40,6 +46,10 @@ public class MainApp extends Application {
         launch(args);
     }
 
+    /**
+     *
+     * @param root
+     */
     private void setEventHandler(Node root){
         root.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.P && event.isControlDown()){

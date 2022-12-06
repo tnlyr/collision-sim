@@ -15,10 +15,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import edu.vanier.collisions.controllers.ResourceManager;
 
 import java.io.*;
 import java.time.format.ResolverStyle;
 import java.util.Arrays;
+
 
 public class MainAppController {
     @FXML
@@ -41,6 +43,7 @@ public class MainAppController {
     public static boolean isPlaying = false;
 
     PhysicsEngine physicsEngine = PhysicsEngine.getInstance();
+
 
     @FXML
     private void initialize() {
@@ -170,6 +173,9 @@ public class MainAppController {
         physicsEngine.init();
     }
 
+    /**
+     *
+     */
     private void setParametersFromEngine() {
         car1Velocity.getValueFactory().setValue(Math.abs(physicsEngine.getEntity1().getVelocityX()));
         car2Velocity.getValueFactory().setValue(Math.abs(physicsEngine.getEntity2().getVelocityX()));
