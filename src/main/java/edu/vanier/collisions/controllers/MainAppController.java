@@ -3,15 +3,24 @@ package edu.vanier.collisions.controllers;
 import edu.vanier.collisions.models.PhysicsEntity;
 import edu.vanier.collisions.models.Terrain;
 import javafx.fxml.FXML;
+//<<<<<<< HEAD
 import javafx.scene.image.Image;
+//=======
+import javafx.scene.Scene;
+//>>>>>>> a8c837c43403465af0de2a877fc2f00d3d90d67c
 import javafx.scene.media.AudioClip;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+//<<<<<<< HEAD
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
+//=======
+import javafx.scene.layout.VBox;
+//>>>>>>> a8c837c43403465af0de2a877fc2f00d3d90d67c
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import java.io.*;
 import java.time.format.ResolverStyle;
 import java.util.Arrays;
@@ -30,11 +39,9 @@ public class MainAppController {
     @FXML
     MenuButton terrainType;
     @FXML
-    Menu fileMenuBarbtn, editMenuBarbtn, helpMenuBarbtn;
-    @FXML
-    MenuItem exportBtn, importBtn;
+    MenuItem exportBtn, importBtn, aboutBtn;
 
-    boolean isPlaying = false;
+    public static boolean isPlaying = false;
 
     PhysicsEngine physicsEngine = PhysicsEngine.getInstance();
 
@@ -83,6 +90,10 @@ public class MainAppController {
             }
         });
 
+        aboutBtn.setOnAction(e -> {
+            onHelp();
+        });
+
         car1Velocity.valueProperty().addListener((obs, oldValue, newValue) -> {
             physicsEngine.getEntity1().setVelocityX(newValue);
         });
@@ -109,12 +120,6 @@ public class MainAppController {
 
         loopAmbientSound();
 
-        // TODO: ?
-        /*collisionContainer.widthProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("New width: "+newValue);
-            //- resize or reposition our cars.
-        });*/
-
         Arrays.stream(Terrain.values()).forEach(terrain -> {
             MenuItem item = new MenuItem(terrain.toString());
             item.setOnAction(e -> {
@@ -125,17 +130,7 @@ public class MainAppController {
             terrainType.getItems().add(item);
         });
 
-        // TODO: resolve below redundant code
-        physicsEngine.setTerrain(Terrain.GRASS);
-        terrainType.setText(Terrain.GRASS.toString());
-        setBackground(Terrain.GRASS.texturePath());
-
         initEnvironment();
-
-        // TODO: keystroke for play/pause, reset, import, export
-        /*if(event.getCode() == KeyCode.P){
-
-        }*/
     }
 
     private void initEnvironment() {
@@ -169,6 +164,10 @@ public class MainAppController {
         car2.setMass(car2Mass.getValue());
         car2.reset();
 
+        physicsEngine.setTerrain(Terrain.GRASS);
+        terrainType.setText(Terrain.GRASS.toString());
+        setBackground(Terrain.GRASS.texturePath());
+
         collisionContainer.getChildren().setAll(car1, car2);
         physicsEngine.setEntities(car1, car2);
         physicsEngine.setRestitutionCoefficient(elasticitySlider.getValue());
@@ -195,20 +194,20 @@ public class MainAppController {
         audioClip.play();
     }
 
-    private void onPlay() {
+    public void onPlay() {
         physicsEngine.play();
         disableParameters(true);
         playBtn.setText("Pause");
         isPlaying = true;
     }
 
-    private void onPause() {
+    public void onPause() {
         physicsEngine.pause();
         playBtn.setText("Play");
         isPlaying = false;
     }
 
-    private void onReset() {
+    public void onReset() {
         initEnvironment();
         physicsEngine.reset();
         disableParameters(false);
@@ -221,7 +220,7 @@ public class MainAppController {
         generalParameters.setDisable(choice);
     }
 
-    private void onImport() throws IOException, ClassNotFoundException {
+    public void onImport() throws IOException, ClassNotFoundException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Simulation File");
         File file = fileChooser.showOpenDialog(null);
@@ -242,7 +241,7 @@ public class MainAppController {
         disableParameters(false);
     }
 
-    private void onExport() throws IOException {
+    public void onExport() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Simulation");
         fileChooser.setInitialFileName("simulation.sim");
@@ -256,10 +255,12 @@ public class MainAppController {
         }
     }
 
-    private void onHelp() { //TODO: implement help
-        helpMenuBarbtn.setOnAction(e -> {
-            throw new UnsupportedOperationException("TODO");
-        });
+    public void onHelp() { //TODO : Add text inside window
+        Stage stage = new Stage();
+        Scene scene = new Scene(new VBox(), 300, 300);
+        stage.setTitle("Help Window");
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void onPlaybackSliderChange() {
