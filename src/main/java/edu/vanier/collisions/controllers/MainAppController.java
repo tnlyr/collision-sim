@@ -3,17 +3,21 @@ package edu.vanier.collisions.controllers;
 import edu.vanier.collisions.models.PhysicsEntity;
 import edu.vanier.collisions.models.Terrain;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.Scene;
 import javafx.scene.media.AudioClip;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.time.format.ResolverStyle;
 import java.util.Arrays;
 
 public class MainAppController {

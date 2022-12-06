@@ -13,4 +13,6 @@ public class ResourceManager {
     public final static String ICE = RESOURCES_PATH + IMAGES_FOLDER + "ICE.jpg";
     public final static String WATER = RESOURCES_PATH + IMAGES_FOLDER + "OCEAN.jpg";
     public final static String MOON = RESOURCES_PATH + IMAGES_FOLDER + "MOON.jpg";
+    public final static String Car1 = RESOURCES_PATH + IMAGES_FOLDER + "Car1.png";
+    public final static String Car2 = RESOURCES_PATH + IMAGES_FOLDER + "Car2.png";
 }
