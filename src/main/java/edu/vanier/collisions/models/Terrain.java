@@ -15,20 +15,50 @@ public enum Terrain {
     private final String texturePath;
     private final double gravity; // in m/s^2
 
+    /**
+     *
+     * @param frictionCoefficient
+     * @param texturePath
+     * @param gravity
+     */
     Terrain(double frictionCoefficient, String texturePath, double gravity) {
         this.frictionCoefficient = frictionCoefficient;
         this.texturePath = texturePath;
         this.gravity = gravity;
     }
 
+    /**
+     *
+     * @param frictionCoefficient
+     * @param texturePath
+     */
     Terrain(double frictionCoefficient, String texturePath) {
         this.frictionCoefficient = frictionCoefficient;
         this.texturePath = texturePath;
         this.gravity = 9.8;
     }
 
+    /**
+     *
+     * @return the kinetic coefficient of friction
+     */
     public double frictionCoefficient() { return frictionCoefficient; }
+
+    /**
+     *
+     * @return the gravity of the terrain type
+     */
     public double gravity() { return gravity; }
+
+    /**
+     *
+     * @return the parameter of deceleration based on the friction coefficient and the gravity.
+     */
     public double deceleration() { return frictionCoefficient * gravity; }
+
+    /**
+     *
+     * @return the correct background based on the terrain type
+     */
     public String texturePath() { return texturePath; }
 }
