@@ -88,6 +88,10 @@ public class PhysicsEngine implements Serializable {
         });
     }
 
+    public double getDuration() {
+        return parallelTransition.getTotalDuration().toSeconds();
+    }
+
     private void setTrajectoryToStandstill(PhysicsEntity entity) {
         entity.setInitialPosX(entity.getRelativePosition());
         double timeOfStandstill = entity.getTimeAtStandstill(getFrictionDeceleration(entity.getDirection()));
