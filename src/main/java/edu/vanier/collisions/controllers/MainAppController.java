@@ -3,13 +3,17 @@ package edu.vanier.collisions.controllers;
 import edu.vanier.collisions.models.PhysicsEntity;
 import edu.vanier.collisions.models.Terrain;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import java.io.*;
+import java.time.format.ResolverStyle;
 import java.util.Arrays;
 
 public class MainAppController {
@@ -143,6 +147,7 @@ public class MainAppController {
         car1.setLayoutY(340.0);
         car1.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
         car1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
+
 
         car2.setFill(javafx.scene.paint.Color.valueOf("#d71e14"));
         car2.setHeight(59.0);
