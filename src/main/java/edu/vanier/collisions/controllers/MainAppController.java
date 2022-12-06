@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -30,6 +31,8 @@ public class MainAppController {
     MenuButton terrainType;
     @FXML
     MenuItem exportBtn, importBtn, aboutBtn;
+    @FXML
+    Text statDuration, statCar1Vel, statCar2Vel, statEnergy;
 
     public static boolean isPlaying = false;
 
@@ -183,11 +186,22 @@ public class MainAppController {
         audioClip.play();
     }
 
+    private double calculateEnergy(){
+        double energy1 = physicsEngine.getEntity1().getMass() * Math.pow(physicsEngine.getEntity1().getVelocityX(), 2) / 2;
+        double energy2 = physicsEngine.getEntity2().getMass() * Math.pow(physicsEngine.getEntity2().getVelocityX(), 2) / 2;
+        double totalEnergy = (energy1 + energy2)/1000 ;
+        return totalEnergy;
+    }
+
     public void onPlay() {
         physicsEngine.play();
         disableParameters(true);
         playBtn.setText("Pause");
         isPlaying = true;
+        statCar1Vel.setText(car1Velocity.getValue().toString() + " m/s");
+        statCar2Vel.setText(car2Velocity.getValue().toString() + " m/s");
+        statEnergy.setText(calculateEnergy() + " KJ");
+        statDuration.setText(physicsEngine.getDuration() + " s");
     }
 
     public void onPause() {
@@ -202,6 +216,10 @@ public class MainAppController {
         disableParameters(false);
         playBtn.setText("Play");
         isPlaying = false;
+        statCar1Vel.setText("0 m/s");
+        statCar2Vel.setText("0 m/s");
+        statEnergy.setText("0 J");
+        statDuration.setText("0 s");
     }
 
     private void disableParameters(boolean choice) {
