@@ -268,7 +268,44 @@ public class MainAppController {
 
     public void onHelp() { //TODO : Add text inside window
         Stage stage = new Stage();
-        Scene scene = new Scene(new VBox(), 300, 300);
+        TextArea textArea = new TextArea();
+        textArea.setWrapText(true);
+        textArea.setEditable(false);
+        textArea.setText("""
+         • Simulation controls
+            ◦ Play/pause button
+                The play button allows you to start the simulation; once it is clicked and the car is moving, the button becomes a stop button that will enable you to stop the collision at any point while preserving the car's position.
+
+            ◦ Reset button
+                The reset button allows you to reset the simulation at its equilibrium stage.
+
+        • Menu bar
+            ◦ File Menu
+                Import Simulation (Ctrl O) allows you to import any saved simulations from your computer.
+                Export Simulation (Ctrl+S) allows you to save your current simulation on your computer.
+
+        • Car Parameters
+            ◦ Mass Spinner
+                Allows you to select, for each car, the mass in kilograms up to 100 kilograms by either using the up and down arrows or entering the number manually.
+
+            ◦ Velocity Spinner
+                Allows you to select, for each car, the velocity in meters per second up to 1000 m/s by either using the up and down arrows or entering the number manually.
+
+        • General Parameters
+            ◦ Playback Speed
+                Using the slider allows you to decide on the playback speed, either by choosing a slower or faster speed of interval between 0.25x to 1.75x, increasing by 0.25x between each tic.
+
+
+            ◦ Car Elasticity
+                Using the sliders allows you to decide how much you want the simulation to be elastic to inelastic, where 0 is a totally inelastic collision, and 1 is a total elastic collision. Consequently, everything in between is a mix of both types.
+
+            ◦ Terrain Type
+                Terrain type will allow you to change the type of terrain the cars are driving on, which will impact the kinetic friction coefficient. In addition, the backgrounds will adapt depending on the terrain type.
+
+        • Status bar
+            The status bar demonstrates the duration of the simulation, the active velocity of both cars and the system's total energy.
+        """);
+        Scene scene = new Scene(textArea, 300, 300);
         stage.setTitle("Help Window");
         stage.setScene(scene);
         stage.show();
