@@ -32,7 +32,7 @@
             </Menu>
             <Menu fx:id="helpMenuBarbtn" mnemonicParsing="false" text="Help">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="aboutBtn" mnemonicParsing="false" text="About" />
                </items>
             </Menu>
          </menus>
