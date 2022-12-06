@@ -136,7 +136,7 @@
                   <HBox alignment="CENTER" spacing="10.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duration:" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0:00:00 ms" />
+                        <Text fx:id="statDuration" strokeType="OUTSIDE" strokeWidth="0.0" text="0:00:00 ms" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" spacing="10.0">
