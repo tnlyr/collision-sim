@@ -23,6 +23,9 @@ import java.util.Arrays;
 
 
 public class MainAppController {
+    /**
+     * Setup of our FXML components
+     */
     @FXML
     Pane collisionContainer;
     @FXML
@@ -44,7 +47,15 @@ public class MainAppController {
 
     PhysicsEngine physicsEngine = PhysicsEngine.getInstance();
 
-
+    /**
+     * Initializing the values of our sliders using intervals of minimum, maximum and initial values
+     * Initializing how our buttons play, pause and reset function when they are set on action
+     * Initializing how our help, import and export button function when set on action
+     * Applying the values of our variables on our cars based on the values inputted by the user
+     * allows to change the background and terrain type ( Coefficient of friction) based on the selected Terrain type
+     * Allowing the music to loop when the program is initialized
+     *
+     */
     @FXML
     private void initialize() {
         System.out.println("MainAppController.initialize()...");
@@ -132,7 +143,10 @@ public class MainAppController {
 
         initEnvironment();
     }
-
+        /*
+        Creating and setting the properties of our cars
+        Setting the original terrain and the entities of our cars
+         */
     private void initEnvironment() {
         PhysicsEntity car1 = new PhysicsEntity();
         PhysicsEntity car2 = new PhysicsEntity();
@@ -174,7 +188,7 @@ public class MainAppController {
     }
 
     /**
-     *
+     *Set the values of the parameters from the engine on the cars in terms of velocity, mass, playback speed, friction coefficient and terrain.
      */
     private void setParametersFromEngine() {
         car1Velocity.getValueFactory().setValue(Math.abs(physicsEngine.getEntity1().getVelocityX()));
@@ -185,23 +199,34 @@ public class MainAppController {
         elasticitySlider.setValue(physicsEngine.getRestitutionCoefficient());
         terrainType.setText(physicsEngine.getTerrain().toString());
     }
-
+    /*
+    Set the background based on the file path related to each terrain type
+     */
     private void setBackground(String path) {
         collisionContainer.setStyle("-fx-background-image: url('"+path+"'); -fx-background-size: stretch; -fx-background-repeat: no-repeat; -fx-background-position: bottom bottom;");
     }
 
+    /**
+     * adding the audio to the simulation and making it indefinite, so it does not stop
+     */
     private void loopAmbientSound() {
         AudioClip audioClip = new AudioClip(getClass().getResource(ResourceManager.AMBIENT_SOUND).toString());
         audioClip.setCycleCount(AudioClip.INDEFINITE);
         audioClip.play();
     }
-
+    /*
+    Calculate the energy in Joules of emitted by both cars
+     */
     private double calculateEnergy(){
         double energy1 = physicsEngine.getEntity1().getMass() * Math.pow(physicsEngine.getEntity1().getVelocityX(), 2) / 2;
         double energy2 = physicsEngine.getEntity2().getMass() * Math.pow(physicsEngine.getEntity2().getVelocityX(), 2) / 2;
         double totalEnergy = (energy1 + energy2)/1000 ;
         return totalEnergy;
     }
+    /*
+    Changes the text of the play button to pause when clicked on
+    Gets the live value of the velocity and energy
+     */
 
     public void onPlay() {
         physicsEngine.play();
@@ -213,13 +238,17 @@ public class MainAppController {
         statEnergy.setText(calculateEnergy() + " KJ");
         statDuration.setText(physicsEngine.getDuration() + " s");
     }
-
+    /*
+    Changes the text to play when the user click on pause
+     */
     public void onPause() {
         physicsEngine.pause();
         playBtn.setText("Play");
         isPlaying = false;
     }
-
+    /*
+    Reset the values in the information bar at 0 when clicked on reset and puts the button back to play
+     */
     public void onReset() {
         initEnvironment();
         physicsEngine.reset();
@@ -236,7 +265,9 @@ public class MainAppController {
         carsParameters.setDisable(choice);
         generalParameters.setDisable(choice);
     }
+    /*
 
+     */
     public void onImport() throws IOException, ClassNotFoundException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Simulation File");
@@ -257,7 +288,9 @@ public class MainAppController {
         initEnvironment();
         disableParameters(false);
     }
-
+    /*
+    Allows the user to export files
+     */
     public void onExport() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Simulation");
@@ -271,7 +304,9 @@ public class MainAppController {
             fileOut.close();
         }
     }
-
+    /*
+    Opens a window to display the documentation of the application to help the user
+     */
     public void onHelp() { //TODO : Add text inside window
         Stage stage = new Stage();
         Scene scene = new Scene(new VBox(), 300, 300);
@@ -279,12 +314,16 @@ public class MainAppController {
         stage.setScene(scene);
         stage.show();
     }
-
+    /*
+    Set the value selected for the playback speed
+     */
     private void onPlaybackSliderChange() {
         double sliderValue = playbackSlider.getValue();
         physicsEngine.setPlaybackSpeed(sliderValue);
     }
-
+    /*
+    Set the value selected for the Elasticity
+     */
     private void onElasticitySliderChange() {
         double sliderValue = elasticitySlider.getValue();
         physicsEngine.setRestitutionCoefficient(sliderValue);

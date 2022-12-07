@@ -14,6 +14,9 @@ public class PhysicsEntity extends Rectangle implements Serializable {
         initializeTranslateTransition();
     }
 
+    /**
+     * Configuring our translations
+     */
     public void initializeTranslateTransition() {
         translateTransition = new TranslateTransition();
         translateTransition.setNode(this);
@@ -22,7 +25,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
 
     /**
      *
-     * @return
+     * @return the position of the translated note from one position to another one
      */
     public TranslateTransition getTranslateTransition() {
         return translateTransition;
@@ -30,7 +33,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
 
     /**
      *
-     * @return
+     * @return the initial position of the cart
      */
     public double getInitialPosX() {
         return initialPosX;
@@ -46,7 +49,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
 
     /**
      *
-     * @return
+     * @return the velocity in X of the car
      */
     public double getVelocityX() {
         return velocityX;
@@ -62,7 +65,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
 
     /**
      *
-     * @return
+     * @return the centerOffSet to make the collision at the tip and not center of the object
      */
     public double getCenterOffset() {
         return centerOffset;
@@ -78,7 +81,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
 
     /**
      *
-     * @return
+     * @return the mass
      */
     public double getMass() {
         return mass;
@@ -87,14 +90,15 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     /**
      *
      * @param mass
+     * set the mass
      */
     public void setMass(double mass) {
         this.mass = mass;
     }
 
     /**
-     * Allows to get the position in x
-     * @return
+     *
+     * @return allows to get the position in x while taking into account the centerOffset and the current position
      */
     public double getRelativePosition() {
         return getLayoutX() + getTranslateX() + centerOffset;
@@ -145,16 +149,23 @@ public class PhysicsEntity extends Rectangle implements Serializable {
         return (short) (velocityX /Math.abs(velocityX));
     }
 
+    /**
+     * Allows the transition (animation) to play
+     */
 
     public void play() {
         translateTransition.play();
     }
-
+    /**
+     * Allows the transition (animation) to stop
+     */
     public void pause() {
         translateTransition.pause();
     }
 
-
+    /**
+     * Allows the transition (animation) to reset
+     */
     public void reset() {
         translateTransition.stop();
         setTranslateX(0);
