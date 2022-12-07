@@ -9,15 +9,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
-/**
- * TODO: is this necessary? bitches?
- * @link: https://openjfx.io/javadoc/18/
- * @see: Build Scripts/build.gradle
- * @author Bozos
- */
 public class MainApp extends Application {
     MainAppController controller = new MainAppController();
 

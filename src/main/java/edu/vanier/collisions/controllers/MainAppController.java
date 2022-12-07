@@ -336,7 +336,7 @@ public class MainAppController {
     /*
     Opens a window to display the documentation of the application to help the user
      */
-    public void onHelp() { //TODO : Add text inside window
+    public void onHelp() {
         Stage stage = new Stage();
         TextArea textArea = new TextArea();
         textArea.setWrapText(true);
