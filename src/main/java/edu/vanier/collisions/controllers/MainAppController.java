@@ -249,6 +249,7 @@ public class MainAppController {
     /*
     Reset the values in the information bar at 0 when clicked on reset and puts the button back to play
      */
+
     public void onReset() {
         initEnvironment();
         physicsEngine.reset();
@@ -265,8 +266,12 @@ public class MainAppController {
         carsParameters.setDisable(choice);
         generalParameters.setDisable(choice);
     }
-    /*
 
+    /**
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * Allows the user to import files while preserving the variable he or she chose.
      */
     public void onImport() throws IOException, ClassNotFoundException {
         FileChooser fileChooser = new FileChooser();
@@ -288,8 +293,11 @@ public class MainAppController {
         initEnvironment();
         disableParameters(false);
     }
-    /*
-    Allows the user to export files
+
+    /**
+     *
+     * @throws IOException
+     * Allowing the user to Export the simulation while conserving their chosen variable
      */
     public void onExport() throws IOException {
         FileChooser fileChooser = new FileChooser();
@@ -354,6 +362,7 @@ public class MainAppController {
     /*
     Set the value selected for the playback speed
      */
+
     private void onPlaybackSliderChange() {
         double sliderValue = playbackSlider.getValue();
         physicsEngine.setPlaybackSpeed(sliderValue);
