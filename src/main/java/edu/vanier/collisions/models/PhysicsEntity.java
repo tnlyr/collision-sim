@@ -1,5 +1,6 @@
 package edu.vanier.collisions.models;
 
+import edu.vanier.collisions.controllers.ResourceManager;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
@@ -130,6 +131,14 @@ public class PhysicsEntity extends Rectangle implements Serializable {
 
     /**
      *
+     * @return the kinetic energy of the car
+     */
+    public double getKineticEnergy() {
+        return 0.5 * mass * velocityX * velocityX;
+    }
+
+    /**
+     *
      * @param acceleration
      * @return if they would not collide when would the car would stop based on the friction only.
      */
@@ -150,24 +159,11 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     /**
-     * Allows the transition (animation) to play
-     */
-
-    public void play() {
-        translateTransition.play();
-    }
-    /**
-     * Allows the transition (animation) to stop
-     */
-    public void pause() {
-        translateTransition.pause();
-    }
-
-    /**
      * Allows the transition (animation) to reset
      */
     public void reset() {
         translateTransition.stop();
+        initializeTranslateTransition();
         setTranslateX(0);
         setLayoutX(initialPosX);
     }

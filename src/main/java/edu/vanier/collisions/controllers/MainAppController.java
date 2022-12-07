@@ -2,23 +2,21 @@ package edu.vanier.collisions.controllers;
 
 import edu.vanier.collisions.models.PhysicsEntity;
 import edu.vanier.collisions.models.Terrain;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import edu.vanier.collisions.controllers.ResourceManager;
-
+import javafx.util.Duration;
 import java.io.*;
-import java.time.format.ResolverStyle;
 import java.util.Arrays;
 
 
@@ -44,6 +42,7 @@ public class MainAppController {
     Text statDuration, statCar1Vel, statCar2Vel, statEnergy;
 
     public static boolean isPlaying = false;
+    public static boolean isReset = false;
 
     PhysicsEngine physicsEngine = PhysicsEngine.getInstance();
 
@@ -129,7 +128,7 @@ public class MainAppController {
             onElasticitySliderChange();
         });
 
-        loopAmbientSound();
+//        loopAmbientSound();
 
         Arrays.stream(Terrain.values()).forEach(terrain -> {
             MenuItem item = new MenuItem(terrain.toString());
@@ -151,35 +150,31 @@ public class MainAppController {
         PhysicsEntity car1 = new PhysicsEntity();
         PhysicsEntity car2 = new PhysicsEntity();
 
-        car1.setFill(javafx.scene.paint.Color.valueOf("#0075ff"));
-        car1.setHeight(59.0);
-        car1.setLayoutY(340.0);
-        car1.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
-        car1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
+        car1.setFill(new ImagePattern(new Image(ResourceManager.Car1)));
+        car1.setHeight(120.0);
+        car1.setLayoutY(300.0);
 
-        car2.setFill(javafx.scene.paint.Color.valueOf("#d71e14"));
-        car2.setHeight(59.0);
-        car2.setLayoutY(340.0);
-        car2.setStroke(javafx.scene.paint.Color.valueOf("BLACK"));
-        car2.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
+        car2.setFill(new ImagePattern(new Image(ResourceManager.Car2)));
+        car2.setHeight(120.0);
+        car2.setLayoutY(300.0);
 
-        car1.setWidth(177.0);
+        car1.setWidth(225.0);
         car1.setCenterOffset(88.5);
         car1.setInitialPosX(100);
         car1.setVelocityX(car1Velocity.getValue());
         car1.setMass(car1Mass.getValue());
         car1.reset();
 
-        car2.setWidth(177.0);
+        car2.setWidth(225.0);
         car2.setCenterOffset(-88.5);
         car2.setInitialPosX(1000);
         car2.setVelocityX(-car2Velocity.getValue());
         car2.setMass(car2Mass.getValue());
         car2.reset();
 
-        physicsEngine.setTerrain(Terrain.GRASS);
-        terrainType.setText(Terrain.GRASS.toString());
-        setBackground(Terrain.GRASS.texturePath());
+        physicsEngine.setTerrain(physicsEngine.getTerrain());
+        terrainType.setText(physicsEngine.getTerrain().toString());
+        setBackground(physicsEngine.getTerrain().texturePath());
 
         collisionContainer.getChildren().setAll(car1, car2);
         physicsEngine.setEntities(car1, car2);
@@ -214,29 +209,54 @@ public class MainAppController {
         audioClip.setCycleCount(AudioClip.INDEFINITE);
         audioClip.play();
     }
-    /*
-    Calculate the energy in Joules of emitted by both cars
-     */
-    private double calculateEnergy(){
-        double energy1 = physicsEngine.getEntity1().getMass() * Math.pow(physicsEngine.getEntity1().getVelocityX(), 2) / 2;
-        double energy2 = physicsEngine.getEntity2().getMass() * Math.pow(physicsEngine.getEntity2().getVelocityX(), 2) / 2;
-        double totalEnergy = (energy1 + energy2)/1000 ;
-        return totalEnergy;
-    }
+
+    ChangeListener<Duration> onTimeElapsed = new ChangeListener<Duration>() {
+        @Override
+        public void changed(ObservableValue<? extends Duration> obs, Duration ov, Duration nv)  {
+            if (isReset) {
+                physicsEngine.getParallelTransition().currentTimeProperty().removeListener(this);
+                statCar1Vel.setText("0 m/s");
+                statCar2Vel.setText("0 m/s");
+                statEnergy.setText("0 kJ");
+                statDuration.setText("0 s");
+                return;
+            }
+
+            if (!isPlaying) {
+                return;
+            }
+
+            physicsEngine.adjustVelocityWithAcceleration(physicsEngine.getEntity1(), nv.subtract(ov).toSeconds());
+            physicsEngine.adjustVelocityWithAcceleration(physicsEngine.getEntity2(), nv.subtract(ov).toSeconds());
+
+            String durationText = String.format("%.2f", nv.toSeconds());
+            String vel1Text = String.format("%.2f", physicsEngine.getEntity1().getVelocityX());
+            String vel2Text = String.format("%.2f", physicsEngine.getEntity2().getVelocityX());
+            String energyText = String.format("%.2f", physicsEngine.getTotalSystemEnergy());
+
+
+            statDuration.setText(durationText + " s");
+            statCar1Vel.setText(vel1Text + " m/s");
+            statCar2Vel.setText(vel2Text + " m/s");
+            statEnergy.setText(energyText + " kJ");
+        }
+    };
+
     /*
     Changes the text of the play button to pause when clicked on
     Gets the live value of the velocity and energy
      */
-
     public void onPlay() {
+        if (isReset){
+            initEnvironment();
+            isReset = false;
+        }
+
         physicsEngine.play();
         disableParameters(true);
         playBtn.setText("Pause");
         isPlaying = true;
-        statCar1Vel.setText(car1Velocity.getValue().toString() + " m/s");
-        statCar2Vel.setText(car2Velocity.getValue().toString() + " m/s");
-        statEnergy.setText(calculateEnergy() + " KJ");
-        statDuration.setText(physicsEngine.getDuration() + " s");
+        physicsEngine.getParallelTransition().currentTimeProperty().addListener(onTimeElapsed);
     }
     /*
     Changes the text to play when the user click on pause
@@ -255,6 +275,7 @@ public class MainAppController {
         disableParameters(false);
         playBtn.setText("Play");
         isPlaying = false;
+        isReset = true;
         statCar1Vel.setText("0 m/s");
         statCar2Vel.setText("0 m/s");
         statEnergy.setText("0 J");
@@ -288,6 +309,7 @@ public class MainAppController {
         initEnvironment();
         disableParameters(false);
     }
+
     /*
     Allows the user to export files
      */
@@ -364,5 +386,9 @@ public class MainAppController {
     private void onElasticitySliderChange() {
         double sliderValue = elasticitySlider.getValue();
         physicsEngine.setRestitutionCoefficient(sliderValue);
+    }
+
+    public static boolean isPlaying() {
+        return isPlaying;
     }
 }

@@ -25,11 +25,6 @@
                   <MenuItem fx:id="exportBtn" mnemonicParsing="false" text="Export Simulation... (Ctrl+S)" />
                </items>
             </Menu>
-            <Menu fx:id="editMenuBarbtn" mnemonicParsing="false" text="Edit">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
-               </items>
-            </Menu>
             <Menu fx:id="helpMenuBarbtn" mnemonicParsing="false" text="Help">
                <items>
                   <MenuItem fx:id="aboutBtn" mnemonicParsing="false" text="About" />

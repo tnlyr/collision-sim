@@ -38,7 +38,6 @@ public class MainApp extends Application {
         stage.setResizable(true);
         stage.setTitle("Collision Simulator");
         stage.sizeToScene();
-        stage.getIcons().getClass().getResource("");
         stage.show();
     }
 
@@ -53,25 +52,28 @@ public class MainApp extends Application {
     private void setEventHandler(Node root){
         root.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.P && event.isControlDown()){
-                if (controller.isPlaying){
+                if (MainAppController.isPlaying()){
                     controller.onPause();
                 }
                 else{
                     controller.onPlay();
                 }
                 event.consume();
+                return;
             }
+
             if (event.getCode() == KeyCode.R && event.isControlDown()){
                 controller.onReset();
                 event.consume();
+                return;
             }
-            if (event.getCode() == KeyCode.ESCAPE){
-                System.exit(0);
-            }
+
             if (event.getCode() == KeyCode.F1){
                 controller.onHelp();
                 event.consume();
+                return;
             }
+            
             if (event.getCode() == KeyCode.O && event.isControlDown()){
                 try {
                     controller.onImport();
@@ -79,7 +81,9 @@ public class MainApp extends Application {
                     throw new RuntimeException(e);
                 }
                 event.consume();
+                return;
             }
+
             if (event.getCode() == KeyCode.S && event.isControlDown()){
                 try {
                     controller.onExport();
@@ -87,6 +91,7 @@ public class MainApp extends Application {
                     throw new RuntimeException(e);
                 }
                 event.consume();
+                return;
             }
         });
     }
