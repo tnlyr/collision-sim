@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class PhysicsEntity extends Rectangle implements Serializable {
     private transient TranslateTransition translateTransition;
-    private double initialPosX, velocityX, centerOffset, mass;
+    private double velocityX, centerOffset, mass;
 
     public PhysicsEntity() {
         super();
@@ -30,23 +30,6 @@ public class PhysicsEntity extends Rectangle implements Serializable {
      */
     public TranslateTransition getTranslateTransition() {
         return translateTransition;
-    }
-
-    /**
-     *
-     * @return the initial position of the cart
-     */
-    public double getInitialPosX() {
-        return initialPosX;
-    }
-
-    /**
-     *
-     * @param initialPosX
-     * Sets the initial position
-     */
-    public void setInitialPosX(double initialPosX) {
-        this.initialPosX = initialPosX;
     }
 
     /**
@@ -116,7 +99,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
      */
     public double getPositionAtTime(double acceleration, double time) {
         time = Math.min(time, getTimeAtStandstill(acceleration));
-        return initialPosX + centerOffset + (velocityX * time) + (0.5 * acceleration * time * time);
+        return getLayoutX() + centerOffset + (velocityX * time) + (0.5 * acceleration * time * time);
     }
 
     /**
@@ -155,9 +138,6 @@ public class PhysicsEntity extends Rectangle implements Serializable {
      * @return the direction of the car based on its velocityX
      */
     public short getDirection() {
-        if (velocityX == 0) {
-            return 0;
-        }
         return (short) (velocityX /Math.abs(velocityX));
     }
 
@@ -165,9 +145,6 @@ public class PhysicsEntity extends Rectangle implements Serializable {
      * Allows the transition (animation) to reset
      */
     public void reset() {
-        translateTransition.stop();
         initializeTranslateTransition();
-        setTranslateX(0);
-        setLayoutX(initialPosX);
     }
 }

@@ -57,8 +57,6 @@ public class MainAppController {
      */
     @FXML
     private void initialize() {
-        System.out.println("MainAppController.initialize()...");
-
         SpinnerValueFactory<Double> car1VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(0,500,250);
         car1Velocity.setValueFactory(car1VelocitySlider);
         SpinnerValueFactory<Double> car2VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(0,500,250);
@@ -160,14 +158,14 @@ public class MainAppController {
 
         car1.setWidth(225.0);
         car1.setCenterOffset(88.5);
-        car1.setInitialPosX(100);
+        car1.setLayoutX(100);
         car1.setVelocityX(car1Velocity.getValue());
         car1.setMass(car1Mass.getValue());
         car1.reset();
 
         car2.setWidth(225.0);
         car2.setCenterOffset(-88.5);
-        car2.setInitialPosX(1000);
+        car2.setLayoutX(1000);
         car2.setVelocityX(-car2Velocity.getValue());
         car2.setMass(car2Mass.getValue());
         car2.reset();
@@ -226,10 +224,15 @@ public class MainAppController {
                 return;
             }
 
+            boolean isCollision = physicsEngine.getEntity1().getBoundsInParent().intersects(physicsEngine.getEntity2().getBoundsInParent());
+            if (isCollision) {
+                physicsEngine.onCollision();
+            }
+
             physicsEngine.adjustVelocityWithAcceleration(physicsEngine.getEntity1(), nv.subtract(ov).toSeconds());
             physicsEngine.adjustVelocityWithAcceleration(physicsEngine.getEntity2(), nv.subtract(ov).toSeconds());
 
-            String durationText = String.format("%.2f", nv.toSeconds());
+            String durationText = String.format("%.2f", physicsEngine.getCurrentTime());
             String vel1Text = String.format("%.2f", physicsEngine.getEntity1().getVelocityX());
             String vel2Text = String.format("%.2f", physicsEngine.getEntity2().getVelocityX());
             String energyText = String.format("%.2f", physicsEngine.getTotalSystemEnergy());
@@ -255,9 +258,11 @@ public class MainAppController {
         physicsEngine.play();
         disableParameters(true);
         playBtn.setText("Pause");
+        resetBtn.setDisable(false);
         isPlaying = true;
         physicsEngine.getParallelTransition().currentTimeProperty().addListener(onTimeElapsed);
     }
+
     /*
     Changes the text to play when the user click on pause
      */

@@ -4,14 +4,14 @@ import edu.vanier.collisions.models.PhysicsEntity;
 import edu.vanier.collisions.models.Terrain;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.util.Duration;
 import java.io.Serializable;
 
 public class PhysicsEngine implements Serializable {
     private static PhysicsEngine instance = null;
     private double playbackSpeed = 1;
+    private int collisionCount = 0;
+    private double preCollisionDuration = 0;
     private Terrain terrain = Terrain.GRASS;
     private double restitutionCoefficient;
     private transient ParallelTransition parallelTransition;
@@ -42,42 +42,37 @@ public class PhysicsEngine implements Serializable {
 
     public void init() {
         parallelTransition = new ParallelTransition(entity1.getTranslateTransition(), entity2.getTranslateTransition());
-        parallelTransition.setCycleCount(1);
         parallelTransition.setInterpolator(Interpolator.EASE_OUT);
 
+        setTrajectoryToStandstill(entity1);
+        setTrajectoryToStandstill(entity2);
+    }
+
+    public void onCollision() {
+        if (collisionCount != 0) {
+            return;
+        }
+
+        preCollisionDuration = parallelTransition.getCurrentTime().toSeconds();
+        collisionCount++;
+
+        try {
+            Thread.sleep(80);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        double v1 = getVelocityXAfterCollision(entity1, entity2);
+        double v2 = getVelocityXAfterCollision(entity2, entity1);
+
+        entity1.setVelocityX(v1);
+        entity2.setVelocityX(v2);
 
         setTrajectoryToStandstill(entity1);
         setTrajectoryToStandstill(entity2);
 
-        ChangeListener<Duration> onCollision = new ChangeListener<Duration>() {
-            @Override
-            public void changed(ObservableValue<? extends Duration> obs, Duration ov, Duration nv)  {
-                boolean isColliding  = entity1.getBoundsInParent().intersects(entity2.getBoundsInParent());
-
-                if (!isColliding) {
-                    return;
-                }
-                
-                parallelTransition.currentTimeProperty().removeListener(this);
-                parallelTransition = new ParallelTransition();
-
-                double v1 = getVelocityXAfterCollision(entity1, entity2);
-                double v2 = getVelocityXAfterCollision(entity2, entity1);
-
-                entity1.setVelocityX(v1);
-                entity2.setVelocityX(v2);
-
-                setTrajectoryToStandstill(entity1);
-                setTrajectoryToStandstill(entity2);
-
-                // start new transitions
-                parallelTransition = new ParallelTransition(entity1.getTranslateTransition(), entity2.getTranslateTransition());
-                parallelTransition.play();
-
-            };
-        };
-
-        parallelTransition.currentTimeProperty().addListener(onCollision);
+        // start new transitions
+        parallelTransition.playFromStart();
     }
 
     public ParallelTransition getParallelTransition() {
@@ -89,10 +84,10 @@ public class PhysicsEngine implements Serializable {
      * @param entity
      */
     private void setTrajectoryToStandstill(PhysicsEntity entity) {
-//        entity.setInitialPosX(entity.getRelativePosition());
+        entity.setLayoutX(entity.getLayoutX() + entity.getTranslateX());
+        entity.setTranslateX(0);
         double timeOfStandstill = entity.getTimeAtStandstill(getFrictionDeceleration(entity.getDirection()));
         double positionOfStandstill = entity.getPositionAtTime(getFrictionDeceleration(entity.getDirection()), timeOfStandstill)-entity.getRelativePosition();
-        entity.initializeTranslateTransition();
         entity.getTranslateTransition().setDuration(Duration.seconds(timeOfStandstill / playbackSpeed));
         entity.getTranslateTransition().setByX(positionOfStandstill);
     }
@@ -132,6 +127,10 @@ public class PhysicsEngine implements Serializable {
         return -direction * terrain.deceleration();
     }
 
+    public double getCurrentTime() {
+        return parallelTransition.getCurrentTime().toSeconds() + preCollisionDuration;
+    }
+
 
     public void play() {
         init();
@@ -143,6 +142,7 @@ public class PhysicsEngine implements Serializable {
     }
 
     public void reset() {
+        collisionCount = 0;
         parallelTransition.stop();
         parallelTransition.jumpTo(Duration.ZERO);
         entity1.reset();
@@ -218,5 +218,13 @@ public class PhysicsEngine implements Serializable {
     public void setEntities(PhysicsEntity entity1, PhysicsEntity entity2) {
         this.entity1 = entity1;
         this.entity2 = entity2;
+    }
+
+    public int getCollisionCount() {
+        return collisionCount;
+    }
+
+    public void setCollisionCount(int collisionCount) {
+        this.collisionCount = collisionCount;
     }
 }

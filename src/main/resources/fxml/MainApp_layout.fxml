@@ -164,7 +164,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="resetBtn" mnemonicParsing="false" prefWidth="60.0" text="Reset" textFill="#cd1616" />
+                  <Button fx:id="resetBtn" disable="true" mnemonicParsing="false" prefWidth="60.0" text="Reset" textFill="#cd1616" />
                </children>
                <padding>
                   <Insets left="30.0" right="30.0" />
