@@ -48,6 +48,7 @@ public class MainApp extends Application {
     /**
      *
      * @param root
+     * Allow to handle event based on the user interactions
      */
     private void setEventHandler(Node root){
         root.addEventHandler(KeyEvent.KEY_PRESSED, event -> {

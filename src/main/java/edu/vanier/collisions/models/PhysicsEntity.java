@@ -43,6 +43,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     /**
      *
      * @param initialPosX
+     * Sets the initial position
      */
     public void setInitialPosX(double initialPosX) {
         this.initialPosX = initialPosX;
@@ -59,6 +60,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     /**
      *
      * @param velocityX
+     * Sets the velocity for the car
      */
     public void setVelocityX(double velocityX) {
         this.velocityX = velocityX;
@@ -75,6 +77,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     /**
      *
      * @param centerOffset
+     * Set the accurate centerOffset to make the collision at the tip and not center of the object
      */
     public void setCenterOffset(double centerOffset) {
         this.centerOffset = centerOffset;
@@ -82,7 +85,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
 
     /**
      *
-     * @return the mass
+     * @return the mass of the car
      */
     public double getMass() {
         return mass;
@@ -91,7 +94,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     /**
      *
      * @param mass
-     * set the mass
+     * set the mass of the car
      */
     public void setMass(double mass) {
         this.mass = mass;
@@ -149,7 +152,7 @@ public class PhysicsEntity extends Rectangle implements Serializable {
 
     /**
      *
-     * @return
+     * @return the direction of the car based on its velocityX
      */
     public short getDirection() {
         if (velocityX == 0) {
