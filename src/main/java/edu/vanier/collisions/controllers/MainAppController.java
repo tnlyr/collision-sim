@@ -59,9 +59,9 @@ public class MainAppController {
     private void initialize() {
         System.out.println("MainAppController.initialize()...");
 
-        SpinnerValueFactory<Double> car1VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1000,250);
+        SpinnerValueFactory<Double> car1VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(0,500,250);
         car1Velocity.setValueFactory(car1VelocitySlider);
-        SpinnerValueFactory<Double> car2VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1000,250);
+        SpinnerValueFactory<Double> car2VelocitySlider = new SpinnerValueFactory.DoubleSpinnerValueFactory(0,500,250);
         car2Velocity.setValueFactory(car2VelocitySlider);
 
         SpinnerValueFactory<Double> mass1Slider = new SpinnerValueFactory.DoubleSpinnerValueFactory(1,100,25);
@@ -359,7 +359,7 @@ public class MainAppController {
                 Allows you to select, for each car, the mass in kilograms up to 100 kilograms by either using the up and down arrows or entering the number manually.
 
             ◦ Velocity Spinner
-                Allows you to select, for each car, the velocity in meters per second up to 1000 m/s by either using the up and down arrows or entering the number manually.
+                Allows you to select, for each car, the velocity in meters per second up to 500 m/s by either using the up and down arrows or entering the number manually.
 
         • General Parameters
             ◦ Playback Speed

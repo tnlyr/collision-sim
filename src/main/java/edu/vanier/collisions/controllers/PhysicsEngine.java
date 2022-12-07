@@ -57,9 +57,7 @@ public class PhysicsEngine implements Serializable {
                 if (!isColliding) {
                     return;
                 }
-
-                System.out.println("Collision!");
-
+                
                 parallelTransition.currentTimeProperty().removeListener(this);
                 parallelTransition = new ParallelTransition();
 
