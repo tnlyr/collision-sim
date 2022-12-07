@@ -128,7 +128,7 @@ public class MainAppController {
             onElasticitySliderChange();
         });
 
-//        loopAmbientSound();
+        loopAmbientSound();
 
         Arrays.stream(Terrain.values()).forEach(terrain -> {
             MenuItem item = new MenuItem(terrain.toString());
