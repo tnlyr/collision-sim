@@ -6,6 +6,7 @@ public class ResourceManager {
     private static final String SOUNDS_FOLDER = "sounds/";
 
     public final static String AMBIENT_SOUND = RESOURCES_PATH + SOUNDS_FOLDER + "ambient.wav";
+    public final static String COLLISION_SOUND = RESOURCES_PATH + SOUNDS_FOLDER + "collision.wav";
     public final static String SNOW = RESOURCES_PATH + IMAGES_FOLDER + "SNOW.jpg";
     public final static String GRASS = RESOURCES_PATH + IMAGES_FOLDER + "GRASS.jpg";
     public final static String DESERT = RESOURCES_PATH + IMAGES_FOLDER + "DESERT.jpg";

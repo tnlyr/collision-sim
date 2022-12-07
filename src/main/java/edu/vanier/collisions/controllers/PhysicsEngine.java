@@ -4,6 +4,7 @@ import edu.vanier.collisions.models.PhysicsEntity;
 import edu.vanier.collisions.models.Terrain;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
+import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 import java.io.Serializable;
 
@@ -55,6 +56,9 @@ public class PhysicsEngine implements Serializable {
 
         preCollisionDuration = parallelTransition.getCurrentTime().toSeconds();
         collisionCount++;
+
+        AudioClip audioClip = new AudioClip(getClass().getResource(ResourceManager.COLLISION_SOUND).toString());
+        audioClip.play();
 
         try {
             Thread.sleep(80);
