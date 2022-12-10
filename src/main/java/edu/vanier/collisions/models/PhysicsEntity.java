@@ -25,7 +25,6 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     /**
-     *
      * @return the position of the translated note from one position to another one
      */
     public TranslateTransition getTranslateTransition() {
@@ -33,7 +32,6 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     /**
-     *
      * @return the velocity in X of the car
      */
     public double getVelocityX() {
@@ -41,7 +39,6 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     /**
-     *
      * @param velocityX
      * Sets the velocity for the car
      */
@@ -50,7 +47,6 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     /**
-     *
      * @return the centerOffSet to make the collision at the tip and not center of the object
      */
     public double getCenterOffset() {
@@ -58,7 +54,6 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     /**
-     *
      * @param centerOffset
      * Set the accurate centerOffset to make the collision at the tip and not center of the object
      */
@@ -75,16 +70,13 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     /**
-     *
-     * @param mass
-     * set the mass of the car
+     * @param mass the mass of the car
      */
     public void setMass(double mass) {
         this.mass = mass;
     }
 
     /**
-     *
      * @return allows to get the position in x while taking into account the centerOffset and the current position
      */
     public double getRelativePosition() {
@@ -92,9 +84,9 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     /**
-     *
-     * @param acceleration
-     * @param time
+     * Get the position of the car at time s(t)
+     * @param acceleration the acceleration of the car
+     * @param time the time of the car
      * @return The position of the car based on the time and acceleration taking into account your original position
      */
     public double getPositionAtTime(double acceleration, double time) {
@@ -103,9 +95,9 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     /**
-     *
-     * @param acceleration
-     * @param time
+     * Get the velocity of the car at a certain time v(t)
+     * @param acceleration the acceleration of the car
+     * @param time the time
      * @return The velocity of the car based on the acceleration and time of the simulation
      */
     public double getVelocityAtTime(double acceleration, double time) {
@@ -116,7 +108,6 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     /**
-     *
      * @return the kinetic energy of the car
      */
     public double getKineticEnergy() {
@@ -124,9 +115,9 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     /**
-     *
-     * @param acceleration
-     * @return if they would not collide when would the car would stop based on the friction only.
+     * The time it takes to reach standstill
+     * @param acceleration the acceleration of the car
+     * @return the time it takes to reach standstill
      */
     public double getTimeAtStandstill(double acceleration) {
         double time = (0 - velocityX) / acceleration;
@@ -134,7 +125,6 @@ public class PhysicsEntity extends Rectangle implements Serializable {
     }
 
     /**
-     *
      * @return the direction of the car based on its velocityX
      */
     public short getDirection() {

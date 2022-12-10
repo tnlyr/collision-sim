@@ -22,8 +22,8 @@ public class PhysicsEngine implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Singleton getter
+     * @return the instance of the PhysicsEngine
      */
     public static PhysicsEngine getInstance() {
         if (instance == null) {
@@ -33,14 +33,17 @@ public class PhysicsEngine implements Serializable {
     }
 
     /**
-     *
-     * @param newInstance
+     * Singleton setter
+     * @param newInstance the new instance of the PhysicsEngine
      */
     public static void setInstance(PhysicsEngine newInstance) {
         instance = newInstance;
     }
 
 
+    /**
+     * Initiates the parallel transition
+     */
     public void init() {
         parallelTransition = new ParallelTransition(entity1.getTranslateTransition(), entity2.getTranslateTransition());
         parallelTransition.setInterpolator(Interpolator.EASE_OUT);
@@ -49,6 +52,10 @@ public class PhysicsEngine implements Serializable {
         setTrajectoryToStandstill(entity2);
     }
 
+    /**
+     * Should be called in the event of a collision
+     * Resets animation and recalculates trajectory
+     */
     public void onCollision() {
         if (collisionCount != 0) {
             return;
@@ -84,8 +91,8 @@ public class PhysicsEngine implements Serializable {
     }
 
     /**
-     *
-     * @param entity
+     * Sets the trajectory of the entity to its standstill point
+     * @param entity the entity to set the trajectory for
      */
     private void setTrajectoryToStandstill(PhysicsEntity entity) {
         entity.setLayoutX(entity.getLayoutX() + entity.getTranslateX());
@@ -97,15 +104,19 @@ public class PhysicsEngine implements Serializable {
     }
 
     /**
-     *
-     * @param entity
-     * @param timeElapsed
+     * Adjusts an entity's velocity to account for friction
+     * @param entity the entity to adjust the velocity for
+     * @param timeElapsed the time elapsed since the last update
      */
     public void adjustVelocityWithAcceleration(PhysicsEntity entity, double timeElapsed) {
         double newVel = entity.getVelocityAtTime(getFrictionDeceleration(entity.getDirection()), timeElapsed);
         entity.setVelocityX(newVel);
     }
 
+    /**
+     * Calculates total kinetic energy of the system
+     * @return the total kinetic energy of the system in kJ
+     */
     public double getTotalSystemEnergy(){
         double energy1 = entity1.getKineticEnergy();
         double energy2 = entity2.getKineticEnergy();
@@ -113,38 +124,50 @@ public class PhysicsEngine implements Serializable {
     }
 
     /**
-     *
-     * @param collidedEntity
-     * @param collidingEntity
-     * @return
+     * Calculates the velocity of entity1 after a collision with entity2
+     * @param collidedEntity the entity that collided
+     * @param collidingEntity the entity that collided with the first entity
+     * @return the velocity of the collided entity after the collision
      */
     private double getVelocityXAfterCollision(PhysicsEntity collidedEntity, PhysicsEntity collidingEntity) {
         return (collidedEntity.getMass() * collidedEntity.getVelocityX() + collidingEntity.getMass() * collidingEntity.getVelocityX() + collidingEntity.getMass() * restitutionCoefficient * (collidingEntity.getVelocityX()-collidedEntity.getVelocityX())) / (collidedEntity.getMass() + collidingEntity.getMass());
     }
 
     /**
-     *
-     * @param direction
-     * @return
+     * Calculates the friction deceleration of the entity
+     * @param direction the direction of the entity
+     * @return the friction deceleration of the entity
      */
     private double getFrictionDeceleration(short direction) {
         return -direction * terrain.deceleration();
     }
 
+    /**
+     * Calculates the time elapsed since animation start
+     * @return the time elapsed since animation start
+     */
     public double getCurrentTime() {
         return parallelTransition.getCurrentTime().toSeconds() + preCollisionDuration;
     }
 
-
+    /**
+     * Plays the animation
+     */
     public void play() {
         init();
         parallelTransition.play();
     }
 
+    /**
+     * Pauses the animation
+     */
     public void pause() {
         parallelTransition.pause();
     }
 
+    /**
+     * Stops & resets the animation
+     */
     public void reset() {
         collisionCount = 0;
         parallelTransition.stop();
@@ -154,80 +177,108 @@ public class PhysicsEngine implements Serializable {
         init();
     }
 
+    /**
+     * Sets the playback speed of the animation
+     * @return the playback speed of the animation
+     */
     public double getPlaybackSpeed() {
         return playbackSpeed;
     }
 
+    /**
+     * Gets the playback speed of the animation
+     * @param playbackSpeed the playback speed of the animation
+     */
     public void setPlaybackSpeed(double playbackSpeed) {
         this.playbackSpeed = playbackSpeed;
     }
 
+    /**
+     * Gets the terrain of the animation
+     * @return the terrain of the animation
+     */
     public Terrain getTerrain() {
         return terrain;
     }
 
+    /**
+     * Sets the terrain of the animation
+     * @param terrain the terrain of the animation
+     */
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
     }
 
+    /**
+     * Gets the restitution coefficient of the animation
+     * @return the restitution coefficient of the animation
+     */
     public double getRestitutionCoefficient() {
         return restitutionCoefficient;
     }
 
     /**
-     *
-     * @param restitutionCoefficient
+     * Sets the restitution coefficient of the animation
+     * @param restitutionCoefficient the restitution coefficient of the animation
      */
     public void setRestitutionCoefficient(double restitutionCoefficient) {
         this.restitutionCoefficient = restitutionCoefficient;
     }
 
     /**
-     *
-     * @return
+     * Gets the entity1 of the animation
+     * @return the entity1 of the animation
      */
     public PhysicsEntity getEntity1() {
         return entity1;
     }
 
     /**
-     *
-     * @param entity1
+     * Sets the entity1 of the animation
+     * @param entity1 the entity1 of the animation
      */
     public void setEntity1(PhysicsEntity entity1) {
         this.entity1 = entity1;
     }
 
     /**
-     *
-     * @return
+     * Gets the entity2 of the animation
+     * @return the entity2 of the animation
      */
     public PhysicsEntity getEntity2() {
         return entity2;
     }
 
     /**
-     *
-     * @param entity2
+     * Sets the entity2 of the animation
+     * @param entity2 the entity2 of the animation
      */
     public void setEntity2(PhysicsEntity entity2) {
         this.entity2 = entity2;
     }
 
     /**
-     *
-     * @param entity1
-     * @param entity2
+     * Sets the entities
+     * @param entity1 the first entity
+     * @param entity2 the second entity
      */
     public void setEntities(PhysicsEntity entity1, PhysicsEntity entity2) {
         this.entity1 = entity1;
         this.entity2 = entity2;
     }
 
+    /**
+     * Gets the collision count of the animation
+     * @return the collision count of the animation
+     */
     public int getCollisionCount() {
         return collisionCount;
     }
 
+    /**
+     * Sets the collision count of the animation
+     * @param collisionCount the collision count of the animation
+     */
     public void setCollisionCount(int collisionCount) {
         this.collisionCount = collisionCount;
     }
