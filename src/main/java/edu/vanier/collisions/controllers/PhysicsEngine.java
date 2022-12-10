@@ -68,7 +68,7 @@ public class PhysicsEngine implements Serializable {
         audioClip.play();
 
         try {
-            Thread.sleep(80);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
